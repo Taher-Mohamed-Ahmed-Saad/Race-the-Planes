@@ -36,7 +36,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     //TODO: send the source code to the shader and compile it
     glShaderSource(shaderID, 1, &sourceCStr, nullptr); 
     glCompileShader(shaderID); 
-
+                
     // Here we check for compilation errors
     //TODO: Uncomment this if block
     if(std::string error = checkForShaderCompilationErrors(shaderID); error.size() != 0){
