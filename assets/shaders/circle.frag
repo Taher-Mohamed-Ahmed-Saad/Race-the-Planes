@@ -16,7 +16,7 @@ void main(){
         https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/gl_FragCoord.xhtml
 
     */    
-    if ((gl_FragCoord.x -center[0] )^2 + (gl_FragCoord.y -center[1])^2 <= raduis^2){
+    if (((gl_FragCoord.x -center[0] )^2+ (gl_FragCoord.y -center[1])^2) <= raduis^2){
         frag_color = inside_color;
     } else {
         frag_color = outside_color;
