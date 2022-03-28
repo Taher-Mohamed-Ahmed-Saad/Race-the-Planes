@@ -15,7 +15,8 @@ namespace glm {
 class FullscreenTriangleState: public our::State {
     
     our::ShaderProgram program;
-    //TODO: Add a variable in which we will store the name (ID) for a vertex array
+
+    GLuint VAO;
 
     // onInitialize() function is called once before the state starts
     void onInitialize() override {
@@ -53,7 +54,13 @@ class FullscreenTriangleState: public our::State {
             }
         }
 
-        //TODO: Create a vertex Array
+        //Generate vertex array object
+        //Operand1: specify number of vertex array objects to generate
+        //Operand2: This should be an array that will hold the genrated vertex array object names
+        //          But we specified only one UINT because we created only one vertex array object
+        glGenVertexArrays(1, &VAO);
+        //binding vertex array 
+        glBindVertexArray(VAO);
 
         // We set the clear color to be black
         glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -63,13 +70,20 @@ class FullscreenTriangleState: public our::State {
     void onDraw(double deltaTime) override {
         //At the start of frame we want to clear the screen. Otherwise we would still see the results from the previous frame.
         glClear(GL_COLOR_BUFFER_BIT);
-
-        //TODO: Draw a triangle using the vertex array and the program
+        
+        //drawing triangles using vertex array object and program
+        //Operand1: Mode the openGL will use when drawing
+        //Operand2: Specifies the starting index form which drawing begins
+        //Operand3: Specifies number of vertices that will be drawn 
+        glDrawArrays(GL_TRIANGLES, 0 , 3);
 
     }
 
     // onInitialize() function is called once after the state ends
     void onDestroy() override {
-        //TODO: Delete the vertex Array
+        //Delete the vertex Array
+        //Operand1: number of vertex array objects to be deleted
+        //Operand2: should be an array carring IDs of the vertex array objects
+        glDeleteVertexArrays(1 , &VAO);
     }
 };
