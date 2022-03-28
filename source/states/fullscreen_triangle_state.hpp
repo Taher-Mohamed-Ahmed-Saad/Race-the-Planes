@@ -56,7 +56,7 @@ class FullscreenTriangleState : public our::State
                 else if (type == "vec2")
                 {
                     glm::vec2 value = uniform.value("value", glm::vec2(0, 0));
-                    
+
                     program.set(name, value);
                 }
                 else if (type == "vec4")
