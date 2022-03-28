@@ -10,6 +10,38 @@ class ClearColorState: public our::State {
         //To see how the clear color is written in the json files, see "config/blue-screen.json"
         //To know how read data from a nlohmann::json object, 
         //look at the following documentation: https://json.nlohmann.me/features/element_access/
+        
+        //A try catch to handle any exceptions that could happen during setting clear color
+        //An exception may occour in case the the desired value doesn't exist
+        //In our case this should make no difference but this is a safer method than [] operand
+        try
+        {
+            //This is to get a pointer to the previously created application
+            //Then from the application returning the JSON file object
+            //From JSON file executing a checked access to get scene then clear-color
+            const auto config = getApp()->getConfig().at("scene").at("clear-color");
+
+            //Creating an array for the values of colors and alpha acquired from the configration above
+            float clearColor[4] =  {
+                config["r"],
+                config["g"],
+                config["b"],
+                config["a"],
+            };
+
+            //This function is used to determine the value of the colors and alpha used when clearing color buffers
+            //Operand 1: specify the amount of red color used
+            //Operand 2: specify the amount of green color used
+            //Operand 3: specify the amount of blue color used
+            //Operand 4: specify the opacity(alpha) value
+            glClearColor(clearColor[0],clearColor[1],clearColor[2],clearColor[3]);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+        
+        
     }
 
     // onDraw(deltaTime) function is called every frame 

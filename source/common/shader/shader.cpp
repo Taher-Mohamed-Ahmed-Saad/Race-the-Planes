@@ -34,19 +34,27 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     GLuint shaderID = glCreateShader(type);
 
     //TODO: send the source code to the shader and compile it
-    
+    glShaderSource(shaderID, 1, &sourceCStr, nullptr); 
+    glCompileShader(shaderID);
     // Here we check for compilation errors
-    //TODO: Uncomment this if block
-    // if(std::string error = checkForShaderCompilationErrors(shaderID); error.size() != 0){
-    //     std::cerr << "ERROR IN " << filename << std::endl;
-    //     std::cerr << error << std::endl;
-    //     glDeleteShader(shaderID);
-    //     return false;
-    // }
+    if(std::string error = checkForShaderCompilationErrors(shaderID); error.size() != 0){
+        std::cerr << "ERROR IN " << filename << std::endl;
+        std::cerr << error << std::endl;
+        glDeleteShader(shaderID);
+        return false;
+    }
 
     
-    //TODO: attach the shader to the program then delete the shader
+    //Here we are attaching the shadder object to our program
+    //This is essential during the rendering process because if the shader is not attached it won't render
+    //Operand 1: program object that is declared in this object from the class
+    //Operand2: ID of the shadder to be attached to the program
+    glAttachShader(this->program, shaderID);
 
+    //Since our shader is now attached to the program the we don't need the shadder object anymore
+    //So this functions Deletes the shadder object that was created afew step above
+    //Operand1: Shader ID for the rquired shadder object to be deleted
+    glDeleteShader(shaderID); 
     //We return true since the compilation succeeded
     return true;
 }
@@ -56,13 +64,13 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
 bool our::ShaderProgram::link() const {
     //TODO: call opengl to link the program identified by this->program 
 
+
     // Here we check for linking errors
-    //TODO: Uncomment this if block
-    // if(auto error = checkForLinkingErrors(program); error.size() != 0){
-    //     std::cerr << "LINKING ERROR" << std::endl;
-    //     std::cerr << error << std::endl;
-    //     return false;
-    // }
+    if(auto error = checkForLinkingErrors(program); error.size() != 0){
+        std::cerr << "LINKING ERROR" << std::endl;
+        std::cerr << error << std::endl;
+        return false;
+    }
 
     return true;
 }
