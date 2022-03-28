@@ -34,8 +34,13 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     GLuint shaderID = glCreateShader(type);
 
     //TODO: send the source code to the shader and compile it
+    // add the shader source code to the shader object itself 
+    // operand1: the id of shader object 
+    // opernad2: length of the source code array 
+    // operand3: array of shader source codes 
+    // operand4: num characters in source code (when nullptr it ends with null character)
     glShaderSource(shaderID, 1, &sourceCStr, nullptr); 
-    glCompileShader(shaderID); 
+    glCompileShader(shaderID);  // compile the shader object
                 
     // Here we check for compilation errors
     //TODO: Uncomment this if block
