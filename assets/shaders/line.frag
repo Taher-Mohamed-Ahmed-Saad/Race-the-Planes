@@ -11,6 +11,9 @@ uniform vec4 outside_color = vec4(0.0, 0.0, 0.0, 1.0);
 
 void main(){
     //TODO: Write code that will draw the square
+    //This condition is to specify the the bound of the line acording to eq: y ≤ ax + b
+    //x: gl_FragCoord.x
+    //y: gl_FragCoord.y
     if(gl_FragCoord.y <= slope *gl_FragCoord.x + intercept){
         frag_color = inside_color;
     } else {
