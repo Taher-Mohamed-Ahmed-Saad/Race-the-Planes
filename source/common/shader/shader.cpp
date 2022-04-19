@@ -63,7 +63,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
 
 bool our::ShaderProgram::link() const {
     //TODO: call opengl to link the program identified by this->program 
-
+    glLinkProgram(program);
 
     // Here we check for linking errors
     if(auto error = checkForLinkingErrors(program); error.size() != 0){
