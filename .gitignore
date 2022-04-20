@@ -18,8 +18,5 @@ CMakeSettings.json
 # Clion specific files
 .idea/
 
-# Visual Studio Code specific files
-.vscode/
-
 # Screenshots
 screenshots/
