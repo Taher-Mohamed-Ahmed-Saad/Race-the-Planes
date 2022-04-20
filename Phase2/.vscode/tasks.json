@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "CmakeBuild",
+			"type": "shell",
+			"command": "cmake --build ./build --target GAME_APPLICATION -j8",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}
