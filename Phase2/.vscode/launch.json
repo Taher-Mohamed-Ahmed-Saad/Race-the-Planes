@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/bin/GAME_APPLICATION.exe",
             "args": [
-                "-c = 'config/circle01.json' "
+                "-c='config/mesh-test/default-0.jsonc'"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
