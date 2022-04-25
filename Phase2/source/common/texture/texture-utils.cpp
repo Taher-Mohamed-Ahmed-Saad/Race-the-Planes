@@ -54,7 +54,7 @@ our::Texture2D* our::texture_utils::loadImage(const std::string& filename, bool 
        format=GL_RGBA;
         break;
     }
-    glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     if(generate_mipmap) {
         glGenerateMipmap(GL_TEXTURE_2D);
     }
