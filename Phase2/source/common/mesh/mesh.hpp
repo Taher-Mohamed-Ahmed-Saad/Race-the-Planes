@@ -72,20 +72,20 @@ namespace our {
             // the position is the first thing in the vertex so it has offset = 0
             // this will enable let the shader know that every first 3 floats in the vertex in the buffer are the position
             glVertexAttribPointer(
-                ATTRIB_LOC_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)0);
+                ATTRIB_LOC_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, position));
             // this will enable the vector at location 0 (position)
             glEnableVertexAttribArray(ATTRIB_LOC_POSITION);
 
             // similar to the position however we sent the color as 4 bytes each 0->255 
             // however the fragment shader needs them to be 0->1
             // thats why we set normalized to true
-            glVertexAttribPointer(ATTRIB_LOC_COLOR, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void *)(sizeof(Vertex::position)));
+            glVertexAttribPointer(ATTRIB_LOC_COLOR, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void *)offsetof(Vertex,color));
             glEnableVertexAttribArray(ATTRIB_LOC_COLOR);
 
-            glVertexAttribPointer(ATTRIB_LOC_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(sizeof(Vertex::position) + sizeof(Vertex::color)));
+            glVertexAttribPointer(ATTRIB_LOC_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, tex_coord));
             glEnableVertexAttribArray(ATTRIB_LOC_TEXCOORD);
 
-            glVertexAttribPointer(ATTRIB_LOC_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)(sizeof(Vertex::position) + sizeof(Vertex::color) + sizeof(Vertex::tex_coord)));
+            glVertexAttribPointer(ATTRIB_LOC_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex,normal));
             glEnableVertexAttribArray(ATTRIB_LOC_NORMAL);
 
             elementCount = (GLsizei)elements.size();

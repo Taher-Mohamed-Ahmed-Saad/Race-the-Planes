@@ -135,33 +135,55 @@ namespace our {
 
         //TODO: (Req 8) Modify the following line such that "cameraForward" contains a vector pointing the camera forward direction
         // HINT: See how you wrote the CameraComponent::getViewMatrix, it should help you solve this one
-        glm::vec3 cameraForward = glm::vec3(0.0, 0.0, 0.0);
+        our::Entity* cameraOwner= camera->getOwner();
+        glm::vec3 cameraForward = cameraOwner->getLocalToWorldMatrix()*glm::vec4(0,0,-1,1);
+
         std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand& first, const RenderCommand& second){
             //TODO: (Req 8) Finish this function
-            // HINT: the following return should return true "first" should be drawn before "second". 
-            return false;
+            // the far object should be drawn first so that the near object replaces it   
+            // HINT: the following return should return true "first" should be drawn before "second".
+            float fz=first.center.z;
+            float sz=second.center.z;
+            return fz<sz;
         });
 
         //TODO: (Req 8) Get the camera ViewProjection matrix and store it in VP
-        glm::mat4 VP = glm::mat4(1.0f);
-        //TODO: (Req 8) Set the OpenGL viewport using windowSize
+        glm::mat4 VP = camera->getProjectionMatrix(windowSize)*camera->getViewMatrix();
 
+        //TODO: (Req 8) Set the OpenGL viewport using windowSize
+        glViewport(0,0,windowSize.x,windowSize.y);
         //TODO: (Req 8) Set the clear color to black and the clear depth to 1
-        
-        //TODO: (Req 8) Set the color mask to true and the depth mask to true (to ensure the glClear will affect the framebuffer)
-        
+        //set the clear color to black
+        glClearColor(0.0f,0.0f,0.0f,0.0f);
+        //set the clear depth to 1
+        glClearDepth(1);
+        // TODO: (Req 8) Set the color mask to true and the depth mask to true (to ensure the glClear will affect the framebuffer)
+        glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+        glDepthMask(GL_TRUE);
 
         // If there is a postprocess material, bind the framebuffer
-        if(postprocessMaterial){
+        if (postprocessMaterial)
+        {
             //TODO: (Req 10) bind the framebuffer
-
         }
 
         //TODO: (Req 8) Clear the color and depth buffers
+        //clear the background to be(black) and clear the depth
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
+        auto executeCommands = [VP](std::vector<RenderCommand> commands)
+        {
+            for(RenderCommand command: commands){
+                ShaderProgram* shader=command.material->shader;
+                Mesh* mesh=command.mesh;
+                command.material->setup();
+                shader->set("transform", VP*command.localToWorld);
+                mesh->draw();
+            }  
+        };
         //TODO: (Req 8) Draw all the opaque commands
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
-        
+        executeCommands(opaqueCommands);
         // If there is a sky material, draw the sky
         if(this->skyMaterial){
             //TODO: (Req 9) setup the sky material
@@ -186,7 +208,7 @@ namespace our {
         }
         //TODO: (Req 8) Draw all the transparent commands
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
-        
+        executeCommands(transparentCommands);
 
         // If there is a postprocess material, apply postprocessing
         if(postprocessMaterial){
