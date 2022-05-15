@@ -55,9 +55,9 @@ namespace our {
         switch (cameraType)
         {
         case CameraType::PERSPECTIVE:
-            return glm::perspective(fovY, aspectRatio,near,far);
+            return glm::perspective(fovY, aspectRatio,near,far);    // (radian , aspect , near , far)
         case CameraType::ORTHOGRAPHIC:
-            float top=orthoHeight/2;
+            float top=orthoHeight/2;            // specify the orthographic margins (left , right , top , bottom)
             float bottom=-1*top;
             float left=bottom*aspectRatio;
             float right=top*aspectRatio;

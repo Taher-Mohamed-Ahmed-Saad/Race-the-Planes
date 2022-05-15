@@ -23,7 +23,7 @@ namespace our {
             // Hints: the sky will be draw after the opaque objects so we would need depth testing but which depth funtion should we pick?
             // We will draw the sphere from the inside, so what options should we pick for the face culling.
             PipelineState skyPipelineState;
-            skyPipelineState.depthTesting.enabled=true;
+            skyPipelineState.depthTesting.enabled=true;         //// configure the pipeline state for the sky
             skyPipelineState.depthTesting.function=GL_LEQUAL;
             skyPipelineState.faceCulling.enabled = true;
             skyPipelineState.faceCulling.culledFace=GL_FRONT;
@@ -162,6 +162,11 @@ namespace our {
         glm::mat4 VP = camera->getProjectionMatrix(windowSize)*camera->getViewMatrix();
 
         //TODO: (Req 8) Set the OpenGL viewport using windowSize
+        /*
+        *   x , y : Specify the lower left corner
+        *   width : Specify viewport width
+        *   height: Specify viewport height
+        */
         glViewport(0,0,windowSize.x,windowSize.y);
         //TODO: (Req 8) Set the clear color to black and the clear depth to 1
         //set the clear color to black
@@ -169,6 +174,7 @@ namespace our {
         //set the clear depth to 1
         glClearDepth(1);
         // TODO: (Req 8) Set the color mask to true and the depth mask to true (to ensure the glClear will affect the framebuffer)
+        // enable writing to frame buffer for both color & depth
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
         glDepthMask(GL_TRUE);
 
@@ -186,6 +192,7 @@ namespace our {
         auto executeCommands = [VP](std::vector<RenderCommand> commands)
         {
             for(RenderCommand command: commands){
+                // configure the commands then draw them
                 ShaderProgram* shader=command.material->shader;
                 Mesh* mesh=command.mesh;
                 command.material->setup();

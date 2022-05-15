@@ -14,6 +14,7 @@ imgui.ini
 # Visual Studio specific files
 CMakeSettings.json
 .vs/
+.vscode/
 
 # Clion specific files
 .idea/

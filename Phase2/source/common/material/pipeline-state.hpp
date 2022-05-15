@@ -42,18 +42,18 @@ namespace our {
         // For example, if faceCulling.enabled is true, you should call glEnable(GL_CULL_FACE), otherwise, you should call glDisable(GL_CULL_FACE)
         void setup() const {
             //TODO: (Req 3) Write this function
-            if(faceCulling.enabled){
-                glEnable(GL_CULL_FACE);
-                glCullFace(faceCulling.culledFace);
-                glFrontFace(faceCulling.frontFace);
+            if(faceCulling.enabled){                // configure the culling face                 
+                glEnable(GL_CULL_FACE);             // enable the cull face 
+                glCullFace(faceCulling.culledFace); // specify the culled face
+                glFrontFace(faceCulling.frontFace); // specify the front face
 
             }else{
-                glDisable(GL_CULL_FACE);
+                glDisable(GL_CULL_FACE);            // to disable culling
             }
 
             if(depthTesting.enabled){
-                glEnable(GL_DEPTH_TEST);
-                glDepthFunc(depthTesting.function);
+                glEnable(GL_DEPTH_TEST);            //  to enable depth test
+                glDepthFunc(depthTesting.function); // specify depth test func ( e.g. less , less equal ... )
             }else{
 
                 glDisable(GL_DEPTH_TEST);
@@ -62,15 +62,19 @@ namespace our {
             if(blending.enabled){
                 glEnable(GL_BLEND);
 
+                // configure the blending parameters
                 glBlendEquation(blending.equation);
                 glBlendFunc(blending.sourceFactor,blending.destinationFactor);
                 glBlendColor(blending.constantColor[0], blending.constantColor[1], blending.constantColor[2], blending.constantColor[3]);
             }else{
                 glDisable(GL_BLEND);
             }
-
+            // enable and disable writing of frame buffer color components
+            // if disabled chanell will remain same so cant change it
             glColorMask(colorMask[0], colorMask[1], colorMask[2], colorMask[3]);
-            glDepthMask(depthMask);
+            // enable or disable writing into the depth buffer
+            // if disabled depth will still const so object will still at same position
+            glDepthMask(depthMask); 
         }
 
         // Given a json object, this function deserializes a PipelineState structure

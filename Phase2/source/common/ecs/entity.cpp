@@ -13,6 +13,7 @@ namespace our {
     glm::mat4 Entity::getLocalToWorldMatrix() const {
         //TODO: (Req 7) Write this function
         if(parent){
+            // combine the 2 transformation matrix to transform to world
             return parent->getLocalToWorldMatrix() * localTransform.toMat4();
         }
         return localTransform.toMat4();

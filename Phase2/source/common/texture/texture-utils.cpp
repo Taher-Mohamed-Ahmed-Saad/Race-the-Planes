@@ -38,7 +38,7 @@ our::Texture2D* our::texture_utils::loadImage(const std::string& filename, bool 
     //Bind the texture such that we upload the image data to its storage
     texture->bind();
     GLuint format;
-    switch (channels)
+    switch (channels)   // specify the format of texture
     {
     case 1:
         format = GL_R;
@@ -55,9 +55,21 @@ our::Texture2D* our::texture_utils::loadImage(const std::string& filename, bool 
        format=GL_RGBA;
         break;
     }
+    /*
+    *   desc: specify a two-dimensional texture image
+    *   @param target: Specifies the target texture
+    *   @param level: Specifies the level-of-detail bitmap number (0 in case of full image)
+    *   @param internalformat: Specifies the number of color components in the texture
+    *   @param width : width of the texture image
+    *   @param height: height of the texture image
+    *   @param border: must be 0 
+    *   @param format: format of the pixel data 
+    *   @param type  : data type of the pixel data
+    *   @param data  : pointer to the image data
+    */
     glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     if(generate_mipmap) {
-        glGenerateMipmap(GL_TEXTURE_2D);
+        glGenerateMipmap(GL_TEXTURE_2D);    // generate the mipmap
     }
     stbi_image_free(pixels); //Free image data after uploading to GPU
     return texture;
