@@ -1,15 +1,19 @@
 #include "forward-renderer.hpp"
 #include "../mesh/mesh-utils.hpp"
 #include "../texture/texture-utils.hpp"
+#include <glm/gtx/euler_angles.hpp>
+#include "../components/light.hpp"
 
 namespace our {
 
     void ForwardRenderer::initialize(glm::ivec2 windowSize, const nlohmann::json& config){
         // First, we store the window size for later use
         this->windowSize = windowSize;
-
+        deserialize(config);
+        
         // Then we check if there is a sky texture in the configuration
-        if(config.contains("sky")){
+        if (config.contains("sky"))
+        {
             // First, we create a sphere which will be used to draw the sky
             this->skySphere = mesh_utils::sphere(glm::ivec2(16, 16));
             
@@ -113,6 +117,47 @@ namespace our {
             delete postprocessMaterial;
         }
     }
+    std::vector<Entity*> getLights(World* world){
+        std::vector<Entity *> entities;
+        for (auto entity : world->getEntities())
+        {
+            // If this entity has a light renderer component
+            if (auto light = entity->getComponent<Light>(); light)
+            {
+                entities.push_back(entity);
+            }
+        }
+        return entities;
+    }
+    
+    /*
+        assume default light direction going downwards
+        so to get the direction of the light we  nedd to rotate the vector rotating downwards to point to the required direction
+    */
+    glm::vec3 getDirection(glm::vec3 rotation){
+        return glm::yawPitchRoll(rotation[1], rotation[0], rotation[2])*glm::vec4(0,-1,0,0);
+    }
+    /*
+        setup all the lights in the scene so that the shader get affected with it
+        this is done by giving the shader all the required parameters about each light in the scene
+    */
+    void setupLighting(ShaderProgram *shader, std::vector<Entity *> lightEntities)
+    {
+        shader->set("light_count", (int)lightEntities.size());
+        for (int i = 0; i < lightEntities.size(); i++)
+        {
+            std::string lightStr = "lights[" + std::to_string(i) + "]";
+            shader->set(lightStr + ".position", lightEntities[i]->localTransform.position);
+            shader->set(lightStr + ".direction", getDirection(lightEntities[i]->localTransform.rotation));
+            
+            Light* light=lightEntities[i]->getComponent<Light>();
+            shader->set(lightStr + ".type", (int)light->lightType);
+            shader->set(lightStr + ".diffuse", light->diffuse);
+            shader->set(lightStr + ".specular",light->specular);
+            shader->set(lightStr + ".attenuation",light->attenuation);
+            shader->set(lightStr + ".cone_angles", glm::vec2(glm::radians(light->cone_angles.x), glm::radians(light->cone_angles.y)));
+        }
+    }
 
     void ForwardRenderer::render(World* world){
         // First of all, we search for a camera and for all the mesh renderers
@@ -188,17 +233,30 @@ namespace our {
         //TODO: (Req 8) Clear the color and depth buffers
         //clear the background to be(black) and clear the depth
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
-        auto executeCommands = [VP](std::vector<RenderCommand> commands)
+
+        std::vector<Entity*> lights = getLights(world);
+
+        auto executeCommands = [&VP, &camera,&lights,this](std::vector<RenderCommand> commands)
         {
-            for(RenderCommand command: commands){
+            for(RenderCommand command: commands)
+            {
                 // configure the commands then draw them
                 ShaderProgram* shader=command.material->shader;
                 Mesh* mesh=command.mesh;
                 command.material->setup();
-                shader->set("transform", VP*command.localToWorld);
+
+                shader->set("eye",glm::vec3(camera->getOwner()->getLocalToWorldMatrix()* glm::vec4(camera->eye,1)));
+                shader->set("M", command.localToWorld);
+                shader->set("VP", VP);
+                shader->set("MIT", glm::transpose(glm::inverse(command.localToWorld)));
+                
+                setupLighting(shader,lights);
+                shader->set("sky.top", this->topLight);
+                shader->set("sky.middle", this->middleLight);
+                shader->set("sky.bottom", this->topLight);
+
                 mesh->draw();
-            }  
+            }
         };
         //TODO: (Req 8) Draw all the opaque commands
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
@@ -209,7 +267,7 @@ namespace our {
             this->skyMaterial->setup();
             
             //TODO: (Req 9) Get the camera position
-            glm::vec3 cameraPosition=cameraOwner->getLocalToWorldMatrix()*glm::vec4(0,0,0,1);
+            glm::vec3 cameraPosition=cameraOwner->getLocalToWorldMatrix()*glm::vec4(camera->eye,1);
 
 
             //TODO: (Req 9) Create a model matrix for the sy such that it always follows the camera (sky sphere center = camera position)
@@ -236,15 +294,14 @@ namespace our {
                 0.0f, 0.0f, 1.0f, 1.0f  // Column4
             );
             //TODO: (Req 9) set the "transform" uniform
-            glm::mat4 skyTransform = alwaysBehindTransform * VP * M ;
-            skyMaterial->shader->set("transform", skyTransform);
+            skyMaterial->shader->set("M", M);
+            skyMaterial->shader->set("VP", alwaysBehindTransform * VP);
             //TODO: (Req 9) draw the sky sphere
             skySphere->draw();
         }
         //TODO: (Req 8) Draw all the transparent commands
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         executeCommands(transparentCommands);
-
         // If there is a postprocess material, apply postprocessing
         if(postprocessMaterial){
             //TODO: (Req 10) Return to the default framebuffer

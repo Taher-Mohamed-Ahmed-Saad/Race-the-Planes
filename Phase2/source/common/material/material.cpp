@@ -62,4 +62,53 @@ namespace our {
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
+    void LitMaterial::setup() const {
+        Material::setup();
+        
+        glActiveTexture(GL_TEXTURE0);
+        albedo->bind();
+        albedoSampler->bind(0);
+        shader->set("material.albedo", 0);
+
+        glActiveTexture(GL_TEXTURE1);
+        specular->bind();
+        specularSampler->bind(1);
+        shader->set("material.specular", 1);
+        
+        glActiveTexture(GL_TEXTURE2);
+        roughness->bind();
+        roughnessSampler->bind(2);
+        shader->set("material.roughness", 2);
+
+        glActiveTexture(GL_TEXTURE3);
+        ambientOcc->bind();
+        ambientOccSampler->bind(3);
+        shader->set("material.ambientOcc", 3);
+
+        glActiveTexture(GL_TEXTURE4);
+        emission->bind();
+        emissionSampler->bind(4);
+        shader->set("material.emissive", 4);
+        glActiveTexture(GL_TEXTURE0);
+    }
+    void LitMaterial::deserialize(const nlohmann::json &data)
+    {
+        Material::deserialize(data);
+        if (!data.is_object())
+            return;
+        albedo = AssetLoader<Texture2D>::get(data.value("albedo_texture", ""));
+        albedoSampler = AssetLoader<Sampler>::get(data.value("albedo_sampler", ""));
+
+        specular = AssetLoader<Texture2D>::get(data.value("specular_texture", ""));
+        specularSampler = AssetLoader<Sampler>::get(data.value("specular_sampler", ""));
+
+        roughness = AssetLoader<Texture2D>::get(data.value("roughness_texture", ""));
+        roughnessSampler = AssetLoader<Sampler>::get(data.value("roughness_sampler", ""));
+
+        ambientOcc = AssetLoader<Texture2D>::get(data.value("ambient_occlusion_texture", ""));
+        ambientOccSampler = AssetLoader<Sampler>::get(data.value("ambient_occlusion_sampler", ""));
+
+        emission = AssetLoader<Texture2D>::get(data.value("emission_texture", ""));
+        emissionSampler = AssetLoader<Sampler>::get(data.value("emission_sampler", ""));
+    }
 }

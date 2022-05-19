@@ -37,24 +37,7 @@ our::Texture2D* our::texture_utils::loadImage(const std::string& filename, bool 
     //TODO: (Req 4) Finish this function to fill the texture with the data found in "pixels" and generate the mipmaps if requested
     //Bind the texture such that we upload the image data to its storage
     texture->bind();
-    GLuint format;
-    switch (channels)   // specify the format of texture
-    {
-    case 1:
-        format = GL_R;
-        break;
     
-    case 2:
-        format = GL_RG;
-        break;
-
-    case 3:
-       format=GL_RGB;
-        break;
-    case 4:
-       format=GL_RGBA;
-        break;
-    }
     /*
     *   desc: specify a two-dimensional texture image
     *   @param target: Specifies the target texture
@@ -67,7 +50,7 @@ our::Texture2D* our::texture_utils::loadImage(const std::string& filename, bool 
     *   @param type  : data type of the pixel data
     *   @param data  : pointer to the image data
     */
-    glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     if(generate_mipmap) {
         glGenerateMipmap(GL_TEXTURE_2D);    // generate the mipmap
     }

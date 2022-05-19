@@ -40,7 +40,13 @@ namespace our
         GLuint postprocessFrameBuffer, postProcessVertexArray;
         Texture2D *colorTarget, *depthTarget;
         TexturedMaterial* postprocessMaterial;
+
+
     public:
+        // colors of sky light
+        glm::vec3 topLight=glm::vec3(0.0,0.0,0.0);
+        glm::vec3 middleLight = glm::vec3(0.0, 0.0, 0.0);
+        glm::vec3 bottomLight = glm::vec3(0.0, 0.0, 0.0);
         // Initialize the renderer including the sky and the Postprocessing objects.
         // windowSize is the width & height of the window (in pixels).
         void initialize(glm::ivec2 windowSize, const nlohmann::json& config);
@@ -49,7 +55,26 @@ namespace our
         // This function should be called every frame to draw the given world
         void render(World* world);
 
-
+        void deserialize(const nlohmann::json &data) 
+        {
+            std::cout<<"herer";
+            if (data.contains("topLight"))
+            {
+                std::vector<float> v=data["topLight"];
+                topLight = glm::vec3(v[0], v[1], v[2]);
+            }
+            if(data.contains("middleLight"))
+            {
+                std::vector<float> v=data["middleLight"];
+                middleLight = glm::vec3(v[0], v[1], v[2]);
+            }
+            if(data.contains("bottomLight"))
+            {
+                std::vector<float> v=data["bottomLight"];
+                bottomLight = glm::vec3(v[0], v[1], v[2]);
+            }
+            
+        }
     };
 
 }

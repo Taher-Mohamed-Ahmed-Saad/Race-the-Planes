@@ -20,7 +20,7 @@ namespace our {
         float near, far; // The distance from the camera center to the near and far plane
         float fovY; // The field of view angle of the camera if it is a perspective camera
         float orthoHeight; // The orthographic height of the camera if it is an orthographic camera
-
+        static glm::vec3 eye;
         // The ID of this component type is "Camera"
         static std::string getID() { return "Camera"; }
 
