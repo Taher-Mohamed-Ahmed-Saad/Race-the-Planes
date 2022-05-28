@@ -2,6 +2,7 @@
 
 #include "../ecs/entity.hpp"
 #include "camera.hpp"
+#include "collision.cpp"
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
@@ -27,6 +28,8 @@ namespace our {
             component = entity->addComponent<Light>();
         }else if (type == PlaneComponent::getID()){
             component = entity->addComponent<PlaneComponent>();
+        }else if (type == CollisionComponent::getID()){
+            component = entity->addComponent<CollisionComponent>();
         }
         if(component) component->deserialize(data);
     }

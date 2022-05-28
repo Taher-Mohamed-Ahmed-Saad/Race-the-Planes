@@ -68,6 +68,8 @@ set(COMMON_SOURCES
         source/common/ecs/world.hpp
         source/common/ecs/world.cpp
 
+        source/common/colliders/collider.hpp
+        source/common/components/collision.hpp
         source/common/components/camera.hpp
         source/common/components/camera.cpp
         source/common/components/mesh-renderer.hpp
@@ -86,6 +88,7 @@ set(COMMON_SOURCES
         source/common/systems/free-camera-controller.hpp
         source/common/systems/plane-controller.hpp
         source/common/systems/movement.hpp
+        source/common/systems/collision-detector.hpp
 )
 
 # Define the directories in which to search for the included headers
