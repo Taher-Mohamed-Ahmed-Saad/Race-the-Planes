@@ -56,7 +56,7 @@ void main(){
     
     float material_roughness = texture(material.roughness, fs_in.tex_coord).r;
     float material_shininess = 2.0 / pow(clamp(material_roughness, 0.001, 0.999), 4.0) - 2.0;
-
+    
     vec3 material_emissive = texture(material.emissive, fs_in.tex_coord).rgb;
 
     vec3 sky_light = (normal.y > 0) ?

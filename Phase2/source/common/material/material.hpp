@@ -53,24 +53,36 @@ namespace our {
         void deserialize(const nlohmann::json& data) override;
     };
 
-    class LitMaterial : public Material {
-        Texture2D *albedo;
-        Sampler *albedoSampler;
-  
-        Texture2D *specular;
-        Sampler *specularSampler;
-  
-        Texture2D *roughness;
-        Sampler *roughnessSampler;
-  
-        Texture2D *ambientOcc;
-        Sampler *ambientOccSampler;
-  
-        Texture2D *emission;
-        Sampler *emissionSampler;
+    // class MultiTexturedMaterial : public TintedMaterial {
+    // public:
+    //     std::vector<Texture2D*> textures;
+    //     std::vector<Sampler*> samplers;
+    //     float alphaThreshold;
 
-        void setup() const override;
-        void deserialize(const nlohmann::json& data) override;
+    //     void setup() const override;
+    //     void deserialize(const nlohmann::json& data) override;
+    // };
+
+    class LitMaterial : public Material {
+        public:
+            Texture2D *albedo=nullptr;
+            Sampler *albedoSampler=nullptr;
+
+            Texture2D *specular = nullptr;
+            Sampler *specularSampler=nullptr;
+    
+            Texture2D *roughness=nullptr;
+            Sampler *roughnessSampler=nullptr;
+    
+            Texture2D *ambientOcc=nullptr;
+            Sampler *ambientOccSampler=nullptr;
+    
+            Texture2D *emission=nullptr;
+            Sampler *emissionSampler=nullptr;
+
+
+            void setup() const override;
+            void deserialize(const nlohmann::json& data) override;
     };
 
     // This function returns a new material instance based on the given type

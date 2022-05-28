@@ -57,7 +57,6 @@ namespace our
 
         void deserialize(const nlohmann::json &data) 
         {
-            std::cout<<"herer";
             if (data.contains("topLight"))
             {
                 std::vector<float> v=data["topLight"];

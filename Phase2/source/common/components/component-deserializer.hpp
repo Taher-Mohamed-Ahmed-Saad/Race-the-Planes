@@ -5,6 +5,7 @@
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
+#include "plane-component.cpp"
 #include "light.cpp"
 
 namespace our {
@@ -24,6 +25,8 @@ namespace our {
             component = entity->addComponent<MovementComponent>();
         }else if (type == Light::getID()){
             component = entity->addComponent<Light>();
+        }else if (type == PlaneComponent::getID()){
+            component = entity->addComponent<PlaneComponent>();
         }
         if(component) component->deserialize(data);
     }

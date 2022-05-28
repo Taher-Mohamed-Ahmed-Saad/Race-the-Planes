@@ -17,7 +17,7 @@ namespace our{
             glm::vec2 cone_angles = glm::vec2(45, 90);
 
             static std::string getID() { return "Light"; }
-            // Reads camera parameters from the given json object
+            // Reads light parameters from the given json object
             void deserialize(const nlohmann::json &data) override;
     };
 }

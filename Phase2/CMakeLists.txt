@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)   # Selects the minimum version of CMake required to run this file
 project(GFX-LAB VERSION 0.1.0)          # Here we select the project name and version
-
 # Here we select C++17 with all the standards required and all compiler-specific extensions disabled
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -77,11 +76,15 @@ set(COMMON_SOURCES
         source/common/components/free-camera-controller.cpp
         source/common/components/movement.hpp
         source/common/components/movement.cpp
+        source/common/components/plane-component.hpp
+        source/common/components/light.hpp
         source/common/components/component-deserializer.hpp
+        source/common/components/plane-component.hpp
 
         source/common/systems/forward-renderer.hpp
         source/common/systems/forward-renderer.cpp
         source/common/systems/free-camera-controller.hpp
+        source/common/systems/plane-controller.hpp
         source/common/systems/movement.hpp
 )
 
@@ -93,6 +96,7 @@ include_directories(
         vendor/glm
         vendor/imgui
         vendor/utils
+        vendor/freetype
 )
 
 
@@ -101,6 +105,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_SOURCE_DIR}/bin)
 
 set(STATES_SOURCES
+        source/states/game-state.hpp
+        source/states/menu-state.hpp
         source/states/play-state.hpp
         source/states/mesh-test-state.hpp
         source/states/transform-test-state.hpp

@@ -296,6 +296,8 @@ namespace our {
             //TODO: (Req 9) set the "transform" uniform
             skyMaterial->shader->set("M", M);
             skyMaterial->shader->set("VP", alwaysBehindTransform * VP);
+            
+
             //TODO: (Req 9) draw the sky sphere
             skySphere->draw();
         }
@@ -308,9 +310,17 @@ namespace our {
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
             //TODO: (Req 10) Setup the postprocess material and draw the fullscreen triangle
             postprocessMaterial->setup();
+
+            glActiveTexture(GL_TEXTURE1);
+            ShaderProgram* shader=postprocessMaterial->shader;
+            depthTarget->bind();
+            postprocessMaterial->sampler->bind(1);
+            shader->set("depth_sampler", 1);
+            shader->set("inverse_projection",glm::inverse(camera->getProjectionMatrix(windowSize)));
+            glActiveTexture(GL_TEXTURE0);
+
             glBindVertexArray(postProcessVertexArray);
             glDrawArrays(GL_TRIANGLES,0,3);
-            
         }
     }
 
