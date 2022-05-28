@@ -1,5 +1,5 @@
 #pragma once
-
+#include<cmath>
 #include "../ecs/world.hpp"
 #include "../components/collision.hpp"
 
@@ -10,33 +10,34 @@
 
 namespace our
 {
+    
     class CollisionDetector
     {
 
         bool areCollidingBoxSphere(BoxCollider *boxCollider, SphereCollider *sphereCollider,glm::mat4 boxMat,glm::vec3 spherePos)
         {   
-            // to check if box and sphere are colliding we need to check if any point of the box is inside the sphere.
-            // or if the sphere inside the box.
-            float w=boxCollider->width, h=boxCollider->height,d=boxCollider->depth;
-            glm::vec3 boxPos=glm::vec3(boxMat*glm::vec4(0,0,0,1));
-
-            std::vector<glm::vec3> boxPoints={
-                glm::vec3(w/2,h/2,-d/2),
-                glm::vec3(w/2,h/2,d/2),
-                glm::vec3(w/2,-h/2,d/2),
-                glm::vec3(w/2,-h/2,-d/2),
-                glm::vec3(-w/2,h/2,d/2),
-                glm::vec3(-w/2,h/2,-d/2),
-                glm::vec3(-w/2,-h/2,d/2),
-                glm::vec3(-w/2,-h/2,-d/2)
-            };
+            // local axis of the box we will use them to get the distance to the center of the sphere in those directions
+            glm::vec3 localBoxX=boxMat * glm::vec4(1,0,0,0);
+            glm::vec3 localBoxY=boxMat * glm::vec4(0,1,0,0);
+            glm::vec3 localBoxZ=boxMat * glm::vec4(0,0,1,0);
+            glm::vec3 spherePosRelativeToBox= boxMat*glm::vec4(spherePos,1);
+            // distance between the box center and the sphere center in the direction of localX
+            float localDistanceX = glm::dot(localBoxX, spherePosRelativeToBox);
+            // distance between the box center and the sphere center in the direction of localY
+            float localDistanceY = glm::dot(localBoxY, spherePosRelativeToBox);
+            // distance between the box center and the sphere center in the direction of localY
+            float localDistanceZ = glm::dot(localBoxZ, spherePosRelativeToBox);
             
-            for(int i=0; i<boxPoints.size();i++){
-                boxPoints[i] = boxMat *glm::vec4(boxPoints[i],1);
-                if (glm::distance(boxPoints[i], spherePos) < sphereCollider->radius) return true;
-            }
+            // collision will happen if the distance between the sphere center and the box center
+            // is less than r + w/2 in local x direction and 
+            // is less than r + h/2 in local y direction and
+            // is less than r + d/2 in local z direction 
             
-            return false;
+            return (
+                std::abs(localDistanceX) <sphereCollider->radius+boxCollider->width/2   &&
+                std::abs(localDistanceY) <sphereCollider->radius+boxCollider->height/2  &&
+                std::abs(localDistanceZ) <sphereCollider->radius+boxCollider->depth/2
+            );
         }
 
         bool areCollidingSpheres(SphereCollider *collider1, SphereCollider *collider2,glm::vec3 pos1,glm::vec3 pos2)

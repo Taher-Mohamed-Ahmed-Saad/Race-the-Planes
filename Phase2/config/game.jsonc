@@ -11,7 +11,7 @@
     "scene": {
         "renderer": {
             "sky": "assets/textures/sky.jpg",
-            "postprocess": "assets/shaders/postprocess/vignette.frag",
+            "postprocess": "assets/shaders/postprocess/fog.frag",
             "topLight": [
                 0.3,
                 0.6,
@@ -44,9 +44,10 @@
                 }
             },
             "textures": {
+                "cottage_color": "assets/textures/asphalt/cottage_diffuse.png",
                 "asphalt_color": "assets/textures/asphalt/asp_col.jpg",
                 "asphalt_ao": "assets/textures/asphalt/asp_AO.jpg",
-                "building": "assets/textures/Building_side.jpg",
+                // "building": "assets/textures/Building_side.jpg",
                 "moon": "assets/textures/moon.jpg",
                 "wwPlaneColor": "assets/textures/wwPlaneRGB.jpeg",
                 "star_sparrow_albedo": "assets/textures/starplanetex/StarSparrow_Black.png",
@@ -54,12 +55,12 @@
                 "star_sparrow_Roughness": "assets/textures/starplanetex/StarSparrow_Roughness.png"
             },
             "meshes": {
-                "cube": "assets/models/cube.obj",
+                "cottage": "assets/models/cottage.obj",
                 "wwPlane": "assets/models/wwPlane.obj",
                 "fanWing": "assets/models/fanwing.obj",
+                "city": "assets/models/city.obj",
                 "street": "assets/models/street.obj",
-                "starSparrow": "assets/models/StarSparrow01.obj",
-                "sphere":"assets/models/sphere.obj"
+                "starSparrow": "assets/models/StarSparrow01.obj"
             },
             "samplers": {
                 "default": {},
@@ -68,20 +69,6 @@
                 }
             },
             "materials": {
-                "moon": {
-                    "type": "textured",
-                    "shader": "textured",
-                    "pipelineState": {
-                        "faceCulling": {
-                            "enabled": false
-                        },
-                        "depthTesting": {
-                            "enabled": true
-                        }
-                    },
-                    "tint": [1,1,1,1],"texture": "moon",
-                    "sampler": "default"
-                },
                 "asphalt": {
                     "type": "lit",
                     "shader": "lit",
@@ -96,7 +83,20 @@
                     "albedo_texture": "asphalt_col",
                     "ambient_occlusion_texture": "asphalt_ao"
                 },
-              
+                "city": {
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo_texture": "building",
+                    "emission_texture": "building"
+                },
                 "wwPlane": {
                     "type": "lit",
                     "shader": "lit",
@@ -109,6 +109,19 @@
                         }
                     },
                     "albedo_texture": "wwPlaneColor"
+                },
+                "cottage": {
+                    "type": "lit",
+                    "shader": "lit",
+                    // "pipelineState": {
+                    //     "faceCulling": {
+                    //         "enabled": false
+                    //     },
+                    //     "depthTesting": {
+                    //         "enabled": true
+                    //     }
+                    // },
+                    "albedo_texture": "cottage_color"
                 },
                 "starSparrow": {
                     "type": "lit",
@@ -128,14 +141,48 @@
             }
         },
         "world": [
-    
             // {
-            //     "position": [0,7,0],
+            //     "scale": [4,4,4],
             //     "components": [
             //         {
             //             "type": "Mesh Renderer",
-            //             "mesh": "wwPlane",
-            //             "material": "wwPlane"
+            //             "mesh": "city",
+            //             "material": "city"
+            //         }
+            //     ],
+            //     "children": [
+            //         {
+            //             "components": [
+            //                 {
+            //                     "type": "Mesh Renderer",
+            //                     "mesh": "street",
+            //                     "material": "asphalt"
+            //                 }
+            //             ]
+            //         }
+            //     ]
+            // },
+            {
+                "position":[0,0,7.4183],
+                "components":[
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh":"cottage",
+                        "material":"cottage"
+                    }
+                ]
+            },
+            // {
+            //     "position": [
+            //         0,
+            //         7,
+            //         0
+            //     ],
+            //     "components": [
+            //         {
+            //             "type": "Mesh Renderer",
+            //             "mesh": "starSparrow",
+            //             "material": "starSparrow"
             //         },
             //         {
             //             "type": "Plane",
@@ -144,35 +191,10 @@
             //                 1,
             //                 1.25
             //             ],
-            //             "maxForwardSpeed": 15,
-            //             "maxHoverSpeed": 7,
-            //             "maxSteerSpeed": 10,
-            //             "maxLookRateSpeed": 1
+            //             "maxForwardSpeed": 2
             //         }
             //     ],
             //     "children": [
-            //         {
-            //             "position": [
-            //                 0,
-            //                 -0.079998,
-            //                 -0.685423
-            //             ],
-            //             "components": [
-            //                 {
-            //                     "type": "Mesh Renderer",
-            //                     "mesh": "fanWing",
-            //                     "material": "wwPlane"
-            //                 },
-            //                 {
-            //                     "type": "Movement",
-            //                     "angularVelocity": [
-            //                         0,
-            //                         0,
-            //                         900
-            //                     ]
-            //                 }
-            //             ]
-            //         },
             //         {
             //             "rotation": [
             //                 0,
@@ -187,63 +209,75 @@
             //             "components": [
             //                 {
             //                     "type": "Camera",
-            //                     "fovY": 100,
-            //                     "far": 200
+            //                     "fovY": 100
             //                 },
             //                 {
-            //                     // "type":"Free Camera Controller"
+            //                     "type": "Free Camera Controller"
             //                 }
             //             ]
             //         }
             //     ]
             // },
             {
-                "position":[5,0,5],
-                
-                "components":[
-                    {
-                        "type":"Camera"
-                    },
-                    {
-                        "type":"Free Camera Controller"
-                    }
-                ]
-
-            },
-            {
-                "position":[0,0,-1],
-                "components":[
-                    {
-                        "type":"Mesh Renderer",
-                        "mesh":"sphere",
-                        "material":"moon"
-                    },
-                    {
-                        "type":"Collision",
-                        "collisionType":"static",
-                        "collider":{
-                            "type":"Sphere",
-                            "radius": 1.0
-                        }
-                    },{
-                        "type":"Plane"
-                    }
-                ]
-            },
-            {
-                "position":[0,0,0],
-                "components":[
+                "position": [0,7,0],
+                "components": [
                     {
                         "type": "Mesh Renderer",
-                        "mesh": "cube",
-                        "material": "moon"
+                        "mesh": "wwPlane",
+                        "material": "wwPlane"
                     },
                     {
-                        "type":"Collision",
-                        "collisionType":"dynamic",
-                        "collider":{
-                            "type":"Box"
-                        }
+                        "type": "Plane", 
+                        "acceleration": [1,1,1.25],
+                        "maxForwardSpeed": 15,
+                        "maxHoverSpeed": 7,
+                        "maxSteerSpeed": 10,
+                        "maxLookRateSpeed":1
+                    }
+                ],
+                "children": [
+                    {
+                        "position": [
+                            0,
+                            -0.079998,
+                            -0.685423
+                        ],
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "fanWing",
+                                "material": "wwPlane"
+                            },
+                            {
+                                "type": "Movement",
+                                "angularVelocity": [
+                                    0,
+                                    0,
+                                    900
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "rotation": [
+                            0,
+                            180,
+                            0
+                        ],
+                        "position": [
+                            0,
+                            1.0,
+                            -2.5
+                        ],
+                        "components": [
+                            {
+                                "type": "Camera",
+                                "fovY": 100,
+                                "far":200
+                            },{
+                                // "type":"Free Camera Controller"
+                            }
+                        ]
                     }
                 ]
             },
@@ -299,3 +333,4 @@
         ]
     }
 }
+          
