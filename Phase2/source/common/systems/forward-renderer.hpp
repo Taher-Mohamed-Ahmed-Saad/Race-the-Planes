@@ -61,11 +61,13 @@ namespace our
             {
                 std::vector<float> v=data["topLight"];
                 topLight = glm::vec3(v[0], v[1], v[2]);
+                std::cout << "Got Top Light [ " << v[0] << " ," << v[1] << " ," << v[2] << " ]\n\n\n";
             }
             if(data.contains("middleLight"))
             {
                 std::vector<float> v=data["middleLight"];
                 middleLight = glm::vec3(v[0], v[1], v[2]);
+                std::cout << "Got middle Light [ " << v[0] << " ," << v[1] << " ," << v[2] << " ]\n\n\n";
             }
             if(data.contains("bottomLight"))
             {

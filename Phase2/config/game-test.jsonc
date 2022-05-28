@@ -202,15 +202,17 @@
                 "components":[
                     {
                         "type":"Mesh Renderer",
-                        "mesh":"sphere",
+                        "mesh":"cube",
                         "material":"moon"
                     },
                     {
                         "type":"Collision",
-                        "collisionType":"static",
+                        "collisionType":"dynamic",
                         "collider":{
-                            "type":"Sphere",
-                            "radius": 1.0
+                            "type":"Box",
+                            "width": 2.0,
+                            "height": 2.0,
+                            "depth": 2.0
                         }
                     },
                     {
@@ -233,7 +235,7 @@
                 ]
             },
             {
-                "position":[0,0,0],
+                "position":[10,10,10],
                 "components":[
                     {
                         "type": "Mesh Renderer",
@@ -242,7 +244,7 @@
                     },
                     {
                         "type":"Collision",
-                        "collisionType":"dynamic",
+                        "collisionType":"static",
                         "collider":{
                             "type":"Box",
                             "width":2.0,

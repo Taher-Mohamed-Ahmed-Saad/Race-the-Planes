@@ -10,23 +10,11 @@
     },
     "scene": {
         "renderer": {
-            "sky": "assets/textures/sky.jpg",
-            "postprocess": "assets/shaders/postprocess/fog.frag",
-            "topLight": [
-                0.3,
-                0.6,
-                1.0
-            ],
-            "middleLight": [
-                0.3,
-                0.3,
-                0.3
-            ],
-            "bottomLight": [
-                0.1,
-                0.1,
-                0.0
-            ]
+            "sky": "assets/textures/sky.jpg",                      
+            "postprocess": "assets/shaders/postprocess/vignette.frag",
+            "topLight": [0.1,0.2,0.5],
+            "middleLight": [0.1,0.2,0.3],
+            "bottomLight": [0.1,0.1,0.0]
         },
         "assets": {
             "shaders": {
@@ -44,10 +32,7 @@
                 }
             },
             "textures": {
-                "cottage_color": "assets/textures/asphalt/cottage_diffuse.png",
-                "asphalt_color": "assets/textures/asphalt/asp_col.jpg",
-                "asphalt_ao": "assets/textures/asphalt/asp_AO.jpg",
-                // "building": "assets/textures/Building_side.jpg",
+                "cottage_color": "assets/textures/cottage_diffuse.png",
                 "moon": "assets/textures/moon.jpg",
                 "wwPlaneColor": "assets/textures/wwPlaneRGB.jpeg",
                 "star_sparrow_albedo": "assets/textures/starplanetex/StarSparrow_Black.png",
@@ -58,8 +43,6 @@
                 "cottage": "assets/models/cottage.obj",
                 "wwPlane": "assets/models/wwPlane.obj",
                 "fanWing": "assets/models/fanwing.obj",
-                "city": "assets/models/city.obj",
-                "street": "assets/models/street.obj",
                 "starSparrow": "assets/models/StarSparrow01.obj"
             },
             "samplers": {
@@ -69,34 +52,7 @@
                 }
             },
             "materials": {
-                "asphalt": {
-                    "type": "lit",
-                    "shader": "lit",
-                    "pipelineState": {
-                        "faceCulling": {
-                            "enabled": false
-                        },
-                        "depthTesting": {
-                            "enabled": true
-                        }
-                    },
-                    "albedo_texture": "asphalt_col",
-                    "ambient_occlusion_texture": "asphalt_ao"
-                },
-                "city": {
-                    "type": "lit",
-                    "shader": "lit",
-                    "pipelineState": {
-                        "faceCulling": {
-                            "enabled": false
-                        },
-                        "depthTesting": {
-                            "enabled": true
-                        }
-                    },
-                    "albedo_texture": "building",
-                    "emission_texture": "building"
-                },
+                
                 "wwPlane": {
                     "type": "lit",
                     "shader": "lit",
@@ -113,14 +69,14 @@
                 "cottage": {
                     "type": "lit",
                     "shader": "lit",
-                    // "pipelineState": {
-                    //     "faceCulling": {
-                    //         "enabled": false
-                    //     },
-                    //     "depthTesting": {
-                    //         "enabled": true
-                    //     }
-                    // },
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
                     "albedo_texture": "cottage_color"
                 },
                 "starSparrow": {
@@ -169,6 +125,15 @@
                         "type":"Mesh Renderer",
                         "mesh":"cottage",
                         "material":"cottage"
+                    },{
+                        "type":"Collision",
+                        "collisionType": "dynamic",
+                        "collider": {
+                            "type": "Box",
+                            "width": 35.5707,
+                            "height": 14.5407,
+                            "depth": 19.7021
+                        }
                     }
                 ]
             },
@@ -228,11 +193,21 @@
                     },
                     {
                         "type": "Plane", 
-                        "acceleration": [1,1,1.25],
-                        "maxForwardSpeed": 15,
-                        "maxHoverSpeed": 7,
-                        "maxSteerSpeed": 10,
+                        "acceleration": [2,2,2.5],
+                        "maxForwardSpeed": 30,
+                        "maxHoverSpeed": 14,
+                        "maxSteerSpeed": 20,
                         "maxLookRateSpeed":1
+                    },
+                    {
+                        "type":"Collision",
+                        "collisionType": "dynamic",
+                        "collider": {
+                            "type": "Box",
+                            "width": 11.2797,
+                            "height": 9.50047,
+                            "depth": 3.1605
+                        }
                     }
                 ],
                 "children": [
@@ -266,25 +241,25 @@
                         ],
                         "position": [
                             0,
-                            1.0,
-                            -2.5
+                            4.0,
+                            -10
                         ],
                         "components": [
                             {
                                 "type": "Camera",
-                                "fovY": 100,
+                                "fovY": 95,
                                 "far":200
                             },{
-                                // "type":"Free Camera Controller"
+                                "type":"Free Camera Controller"
                             }
                         ]
                     }
                 ]
-            },
+            }
             //=====================================================
             //====================Light=============================
             //=====================================================
-            {
+            ,{
                 "rotation": [
                     0,
                     60,
