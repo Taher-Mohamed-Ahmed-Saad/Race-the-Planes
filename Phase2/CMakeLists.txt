@@ -89,6 +89,7 @@ set(COMMON_SOURCES
         source/common/systems/plane-controller.hpp
         source/common/systems/movement.hpp
         source/common/systems/collision-detector.hpp
+        source/common/systems/plane-game.hpp
 )
 
 # Define the directories in which to search for the included headers
@@ -119,6 +120,7 @@ set(STATES_SOURCES
         source/states/material-test-state.hpp
         source/states/entity-test-state.hpp
         source/states/renderer-test-state.hpp
+        source/states/menu-state.hpp
 )
 
 # For each example, we add an executable target

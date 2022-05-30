@@ -12,15 +12,12 @@
 // This state shows how to use the ECS framework and deserialization.
 class MenuState : public our::State
 {
-
     our::World world;
     our::ForwardRenderer renderer;
-
-
     void onInitialize() override
     {
         // First of all, we get the scene configuration from the app config
-        auto &config = getApp()->getConfig()["menu"];
+        auto &config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
         if (config.contains("assets"))
         {
@@ -36,19 +33,30 @@ class MenuState : public our::State
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
     }
+    void onImmediateGui() override
+    {
+        ImGui::Begin("Plane Game");
+        
+        if(ImGui::Button("Start Game")) 
+        {
+            getApp()->changeState("game");
+        }
+
+        if(ImGui::Button("Quit Game")){
+            glfwSetWindowShouldClose(getApp()->getWindow(),1);
+        }
+        ImGui::End();
+    }
 
     void onDraw(double deltaTime) override
     {
-        // And finally we use the renderer system to draw the scene
         renderer.render(&world);
     }
 
+
     void onDestroy() override
     {
-        // Don't forget to destroy the renderer
         renderer.destroy();
-        // // On exit, we call exit for the camera controller system to make sure that the mouse is unlocked
-        // cameraController.exit();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
     }

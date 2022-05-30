@@ -7,10 +7,9 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
-
 namespace our
 {
-    
+
     class CollisionDetector
     {
         
@@ -95,9 +94,9 @@ namespace our
             Collider* collider2=entity2->getComponent<CollisionComponent>()->collider;
             if (!collider1 || !collider2 || collider2 == collider1)
                 return false;
-
-            glm::vec3 position1 = entity1->localTransform.position;
-            glm::vec3 position2 = entity2->localTransform.position;   
+            
+            glm::vec3 position1 = entity1->getLocalToWorldMatrix() *glm::vec4(0,0,0,1);
+            glm::vec3 position2 = entity2->getLocalToWorldMatrix() *glm::vec4(0,0,0,1);   
 
             SphereCollider *sphere1 = dynamic_cast<SphereCollider *>(collider1);
             SphereCollider *sphere2 = dynamic_cast<SphereCollider *>(collider2);
@@ -109,19 +108,19 @@ namespace our
             BoxCollider *box2 = dynamic_cast<BoxCollider *>(collider2);
             
             if(sphere1&&box2)
-                return areCollidingBoxSphere(box2, sphere1, entity2->localTransform.toMat4(), position1);
+                return areCollidingBoxSphere(box2, sphere1, entity2->getLocalToWorldMatrix(), position1);
     
             if(sphere2&&box1)
-                return areCollidingBoxSphere(box1, sphere2, entity1->localTransform.toMat4(), position2);
+                return areCollidingBoxSphere(box1, sphere2, entity1->getLocalToWorldMatrix(), position2);
 
             if(box1&&box2)
-                return areCollidingBoxes(box1, entity1->localTransform.toMat4(), box2, entity2->localTransform.toMat4());
+                return areCollidingBoxes(box1, entity1->getLocalToWorldMatrix(), box2, entity2->getLocalToWorldMatrix());
 
             return false;
         }
 
     public:
-        void update(World *world)
+        std::vector<Collision*> update(World *world)
         {
             std::vector<Entity*> staticEntities;
             std::vector<Entity*> animatedEntities;
@@ -136,24 +135,36 @@ namespace our
                     if(collision->type==CollisionType::STATIC){
                         staticEntities.push_back(entity);
                     }
-                    if(collision->type==CollisionType::DYNAMIC){
-                        //because dynamic objects can collide with each other we will add 
-                        // the collider to both lists.
-                        staticEntities.push_back(entity);
+                    else if(collision->type==CollisionType::DYNAMIC){
                         animatedEntities.push_back(entity);
                     }
                 }
             }
 
-
+            std::vector<Collision*> collisions;
             for(auto staticEntity :staticEntities){
                 for (auto animatedEntity : animatedEntities)
                 {
                     if(areColliding(staticEntity,animatedEntity)){
-                        std::cout<<"Coooooooooolision\n\n\n";
+                        Collision * collision=new Collision(staticEntity,animatedEntity);
+                        collisions.push_back(collision);        
+                        // std::cout<<"Coooooooooolision\n\n\n";
+                    }
                 }
             }
-        }
+            for (auto animatedEntity1 : animatedEntities)
+            {
+                for (auto animatedEntity2 : animatedEntities)
+                {
+                    if (animatedEntity1 != animatedEntity2 && areColliding(animatedEntity1, animatedEntity2))
+                    {
+                        Collision *collision = new Collision(animatedEntity1, animatedEntity2);
+                        collisions.push_back(collision);       
+                        // std::cout<<"Coooooooooolision\n\n\n";
+                    }
+                }
+            }
+            return collisions;
     };
 
 };

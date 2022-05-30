@@ -11,7 +11,7 @@
     "scene": {
         "renderer": {
             "sky": "assets/textures/sky.jpg",                      
-            "postprocess": "assets/shaders/postprocess/vignette.frag",
+            "postprocess": "assets/shaders/postprocess/fog.frag",
             "topLight": [0.1,0.2,0.5],
             "middleLight": [0.1,0.2,0.3],
             "bottomLight": [0.1,0.1,0.0]
@@ -32,7 +32,14 @@
                 }
             },
             "textures": {
-                "cottage_color": "assets/textures/cottage_diffuse.png",
+                "torus_color": "assets/textures/albedo.jpg",
+                "torus_ao": "assets/textures/ambient_occlusion.jpg",
+                "torus_roughness": "assets/textures/gold_roughness.jpg",
+                "torus_specular": "assets/textures/specular.jpg",
+                "cottage_color": "assets/textures/Cottage Texture.jpg",
+                "snow_color": "assets/textures/Snow_002_COLOR.jpg",
+                "street_color": "assets/textures/asphalt/asp_col.jpg",
+                "street_ao": "assets/textures/asphalt/asp_AO.jpg",
                 "moon": "assets/textures/moon.jpg",
                 "wwPlaneColor": "assets/textures/wwPlaneRGB.jpeg",
                 "star_sparrow_albedo": "assets/textures/starplanetex/StarSparrow_Black.png",
@@ -40,7 +47,11 @@
                 "star_sparrow_Roughness": "assets/textures/starplanetex/StarSparrow_Roughness.png"
             },
             "meshes": {
+                "torus": "assets/models/torus.obj",
                 "cottage": "assets/models/cottage.obj",
+                "houses": "assets/models/houses.obj",
+                "snow": "assets/models/snow.obj",
+                "street": "assets/models/street.obj",
                 "wwPlane": "assets/models/wwPlane.obj",
                 "fanWing": "assets/models/fanwing.obj",
                 "starSparrow": "assets/models/StarSparrow01.obj"
@@ -52,7 +63,63 @@
                 }
             },
             "materials": {
-                
+                "torus":{
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo_texture": "torus_color",
+                    "ambient_occlusion_texture": "torus_ao",
+                    "roughness_texture": "torus_roughness",
+                    "specular_texture": "torus_specular",
+                    "emission_texture": "torus_color"
+                },
+                "house":{
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo_texture": "cottage_color"
+                },
+                "snow":{
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo_texture": "snow_color"
+                },
+                "street":{
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo_texture": "street_color",
+                    "ambient_occlusion_texture": "street_ao"
+                },
                 "wwPlane": {
                     "type": "lit",
                     "shader": "lit",
@@ -97,94 +164,8 @@
             }
         },
         "world": [
-            // {
-            //     "scale": [4,4,4],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "city",
-            //             "material": "city"
-            //         }
-            //     ],
-            //     "children": [
-            //         {
-            //             "components": [
-            //                 {
-            //                     "type": "Mesh Renderer",
-            //                     "mesh": "street",
-            //                     "material": "asphalt"
-            //                 }
-            //             ]
-            //         }
-            //     ]
-            // },
             {
-                "position":[0,0,7.4183],
-                "components":[
-                    {
-                        "type":"Mesh Renderer",
-                        "mesh":"cottage",
-                        "material":"cottage"
-                    },{
-                        "type":"Collision",
-                        "collisionType": "dynamic",
-                        "collider": {
-                            "type": "Box",
-                            "width": 35.5707,
-                            "height": 14.5407,
-                            "depth": 19.7021
-                        }
-                    }
-                ]
-            },
-            // {
-            //     "position": [
-            //         0,
-            //         7,
-            //         0
-            //     ],
-            //     "components": [
-            //         {
-            //             "type": "Mesh Renderer",
-            //             "mesh": "starSparrow",
-            //             "material": "starSparrow"
-            //         },
-            //         {
-            //             "type": "Plane",
-            //             "acceleration": [
-            //                 1,
-            //                 1,
-            //                 1.25
-            //             ],
-            //             "maxForwardSpeed": 2
-            //         }
-            //     ],
-            //     "children": [
-            //         {
-            //             "rotation": [
-            //                 0,
-            //                 180,
-            //                 0
-            //             ],
-            //             "position": [
-            //                 0,
-            //                 1.0,
-            //                 -2.5
-            //             ],
-            //             "components": [
-            //                 {
-            //                     "type": "Camera",
-            //                     "fovY": 100
-            //                 },
-            //                 {
-            //                     "type": "Free Camera Controller"
-            //                 }
-            //             ]
-            //         }
-            //     ]
-            // },
-            {
-                "position": [0,7,0],
+                "position": [0,20,0],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -193,10 +174,10 @@
                     },
                     {
                         "type": "Plane", 
-                        "acceleration": [2,2,2.5],
-                        "maxForwardSpeed": 30,
-                        "maxHoverSpeed": 14,
-                        "maxSteerSpeed": 20,
+                        "acceleration": [6,6,7.5],
+                        "maxForwardSpeed": 90,
+                        "maxHoverSpeed": 42,
+                        "maxSteerSpeed": 60,
                         "maxLookRateSpeed":1
                     },
                     {
@@ -208,6 +189,9 @@
                             "height": 9.50047,
                             "depth": 3.1605
                         }
+                    },
+                    {
+                        "type":"Player"
                     }
                 ],
                 "children": [
@@ -248,7 +232,7 @@
                             {
                                 "type": "Camera",
                                 "fovY": 95,
-                                "far":200
+                                "far":1000
                             },{
                                 "type":"Free Camera Controller"
                             }
@@ -270,14 +254,14 @@
                         "type": "Light",
                         "lightType": "directional",
                         "diffuse": [
-                            0.3,
-                            0.3,
-                            0.5
+                            0.1,
+                            0.1,
+                            0.2
                         ],
                         "specular": [
-                            0.3,
-                            0.3,
-                            0.5
+                            0.1,
+                            0.1,
+                            0.2
                         ]
                     }
                 ]
@@ -293,19 +277,2865 @@
                         "type": "Light",
                         "lightType": "directional",
                         "diffuse": [
-                            3.25,
-                            2.4,
-                            1.6
+                            0.6,
+                            0.4,
+                            0.25
                         ],
                         "specular": [
-                            3.25,
-                            2.4,
-                            1.6
+                            0.6,
+                            0.4,
+                            0.25
                         ]
                     }
+                ]
+            },
+            {
+                "position":[20,50,100],
+                "components":[
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh": "wwPlane",
+                        "material": "wwPlane"
+                    },
+                    {
+                        "type": "Collision",
+                        "collisionType": "static",
+                        "collider": {
+                            "type": "Box",
+                            "width": 11.2797,
+                            "height": 9.50047,
+                            "depth": 3.1605
+                        }
+                    },
+                    {
+                        "type":"Coin"
+                    }
+            ]
+
+            },
+            //=====================================================
+            //====================Coins=============================
+            //=====================================================
+            {
+                "position":[20,40,20],
+                "rotation":[90,0,0],
+                "components":[
+                    {
+                        "type":"Mesh Renderer",
+                        "mesh":"torus",
+                        "material":"torus"
+                    },
+                    {
+                        "type":"Collision",
+                        "colliderType":"static",
+                        "collider":{
+                            "type":"Box",
+                            "depth":18,
+                            "height":3.5,
+                            "width":18
+                        }
+                    },
+                    {
+                        "type":"Coin"
+                    }
+                ]
+            },
+            //=====================================================
+            //====================World=============================
+            //=====================================================
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            },
+                            {
+                                "type":"Obstacle"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    266,
+                    0,
+                    0
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    -266,
+                    0,
+                    0
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    532,
+                    0,
+                    0
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    -532,
+                    0,
+                    0
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    0,
+                    0,
+                    744
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    266,
+                    0,
+                    744
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    -266,
+                    0,
+                    744
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    532,
+                    0,
+                    744
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    -532,
+                    0,
+                    744
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    0,
+                    0,
+                    1488
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    266,
+                    0,
+                    1488
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    -266,
+                    0,
+                    1488
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    532,
+                    0,
+                    1488
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "houses",
+                        "material": "house"
+                    }
+                ],
+                "children": [
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "street",
+                                "material": "street"
+                            }
+                        ]
+                    },
+                    {
+                        "components": [
+                            {
+                                "type": "Mesh Renderer",
+                                "mesh": "snow",
+                                "material": "snow"
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.3,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            171
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 364,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            -106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            59.4,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "position": [
+                            106.43,
+                            7.3,
+                            595
+                        ],
+                        "components": [
+                            {
+                                "type": "Collision",
+                                "collisionType": "static",
+                                "collider": {
+                                    "type": "Box",
+                                    "depth": 277,
+                                    "height": 18.6,
+                                    "width": 38
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    -532,
+                    0,
+                    1488
                 ]
             }
         ]
     }
 }
-          

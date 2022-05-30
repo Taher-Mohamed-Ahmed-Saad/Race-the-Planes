@@ -8,6 +8,7 @@
 #include "movement.hpp"
 #include "plane-component.cpp"
 #include "light.cpp"
+#include "game-components.hpp"
 
 namespace our {
 
@@ -30,6 +31,12 @@ namespace our {
             component = entity->addComponent<PlaneComponent>();
         }else if (type == CollisionComponent::getID()){
             component = entity->addComponent<CollisionComponent>();
+        }else if (type == Player::getID()){
+            component = entity->addComponent<Player>();
+        }else if (type == Obstacle::getID()){
+            component = entity->addComponent<Obstacle>();
+        }else if (type == Coin::getID()){
+            component = entity->addComponent<Coin>();
         }
         if(component) component->deserialize(data);
     }

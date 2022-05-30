@@ -8,6 +8,7 @@
 #include <systems/movement.hpp>
 #include <systems/plane-controller.hpp>
 #include <systems/collision-detector.hpp>
+#include <systems/plane-game.hpp>
 #include <asset-loader.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -19,6 +20,7 @@ class GameState: public our::State {
     our::MovementSystem movementSystem;
     our::CollisionDetector collisionDetector;
     our::PlaneControllerSystem planeSystem;
+    our::PlaneGame game;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -41,18 +43,22 @@ class GameState: public our::State {
 
     void onDraw(double deltaTime) override {
         // Here, we just run a bunch of systems to control the world logic
-        collisionDetector.update(&world);
         movementSystem.update(&world, (float)deltaTime);
         planeSystem.update(&world, (float)deltaTime);
+        
+        auto collisions = collisionDetector.update(&world);
+        game.update(&world,collisions);
+        collisions.clear();
+        world.deleteMarkedEntities();
+        cameraController.update(&world,(float)deltaTime);
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
-        cameraController.update(&world,(float)deltaTime);
     }
 
     void onDestroy() override {
         // Don't forget to destroy the renderer
         renderer.destroy();
-        // // On exit, we call exit for the camera controller system to make sure that the mouse is unlocked
+              // On exit, we call exit for the camera controller system to make sure that the mouse is unlocked
         // cameraController.exit();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
