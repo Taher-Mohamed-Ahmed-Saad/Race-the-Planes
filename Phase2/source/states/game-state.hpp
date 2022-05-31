@@ -53,6 +53,9 @@ class GameState: public our::State {
         cameraController.update(&world,(float)deltaTime);
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
+        if(getApp()->getKeyboard().isPressed(GLFW_KEY_ESCAPE)){
+            getApp()->changeState("menu");
+        }
     }
 
     void onDestroy() override {

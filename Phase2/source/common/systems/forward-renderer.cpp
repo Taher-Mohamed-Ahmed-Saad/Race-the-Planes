@@ -64,7 +64,7 @@ namespace our {
             // Hints: The color format can be (Red, Green, Blue and Alpha components with 8 bits for each channel).
             // The depth format can be (Depth component with 24 bits).
             colorTarget=texture_utils::empty(GL_RGBA8,windowSize);
-            depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT24, windowSize);
+            depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT32, windowSize);
 
             glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT , GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
             glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
