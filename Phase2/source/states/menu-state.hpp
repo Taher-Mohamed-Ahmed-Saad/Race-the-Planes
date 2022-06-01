@@ -3,6 +3,7 @@
 #include <application.hpp>
 #include <asset-loader.hpp>
 #include <../common/systems/text-renderer.cpp>
+class GameState;
 
 enum SelectedOption
 {
@@ -17,6 +18,7 @@ class MenuState : public our::State
     int selectedOption = 0;
     bool lastPressUp = false;
     bool lastPressDown = false;
+    bool isLoading=false;
 
     our::TextRenderer textRenderer;
     our::Font *font;
@@ -55,8 +57,13 @@ class MenuState : public our::State
     
     void select(){
         if(selectedOption==SelectedOption::START){
+            if(!isGameStarted){
+                getApp()->registerState<GameState>("game");
+            }
             getApp()->changeState("game");
             isGameStarted=true;
+            isLoading=true;
+
         }
         if(selectedOption==SelectedOption::QUIT){
             glfwSetWindowShouldClose(getApp()->getWindow(),true);
@@ -65,7 +72,7 @@ class MenuState : public our::State
 
     void onInitialize() override
     {
-
+        isLoading=false;
         auto &config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
         if (config.contains("assets"))
@@ -107,21 +114,31 @@ class MenuState : public our::State
 
         glm::vec2 center = getApp()->getWindowSize() / 2;
         updateSelection();
-        std::vector<our::TextRenderCommand>
-            commands = {
-                our::TextRenderCommand(
-                    font,
-                    isGameStarted ? resumeGameText : startGameText,
-                    1.5f,
-                    center - glm::vec2(100, -10),
-                    selectedOption == SelectedOption::START ? selectedTextColor : unselectedTextColor),
-                our::TextRenderCommand(
-                    font,
-                    quitGameText,
-                    1.0f,
-                    center - glm::vec2(100, 50),
-                    selectedOption == SelectedOption::QUIT ? selectedTextColor : unselectedTextColor),
-            };
+        std::vector<our::TextRenderCommand> commands;
+        if(!isLoading){
+            commands.insert(commands.end(), {
+                                                our::TextRenderCommand(
+                                                    font,
+                                                    isGameStarted ? resumeGameText : startGameText,
+                                                    1.5f,
+                                                    center - glm::vec2(100, -10),
+                                                    selectedOption == SelectedOption::START ? selectedTextColor : unselectedTextColor),
+                                                our::TextRenderCommand(
+                                                    font,
+                                                    quitGameText,
+                                                    1.0f,
+                                                    center - glm::vec2(100, 50),
+                                                    selectedOption == SelectedOption::QUIT ? selectedTextColor : unselectedTextColor),
+                                            });
+
+        }else{
+            commands.push_back(our::TextRenderCommand(
+                                                    font,
+                                                    "Loading...",
+                                                    1.5f,
+                                                    center - glm::vec2(100, -10),
+                                                    selectedTextColor ));
+        }
         textRenderer.render(commands);
     }
 

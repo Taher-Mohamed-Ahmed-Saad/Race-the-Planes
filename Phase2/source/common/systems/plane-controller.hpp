@@ -25,19 +25,12 @@ namespace our
     class PlaneControllerSystem {
             Application *app;          // The application in which the state runs
         public:
-            // glm::vec3 speed = {7.5,5,25.0};
-            // float forwardSpeed=25.0,hoverSpeed=10,steerSpeed=15;
-            // glm::vec3 acceleration={2,2,2.5};
-            // float lookRateSpeed=1;
-            // glm::vec2 lookInput, , mouseDistance;
-            // float rollInput;
-            // float rollSpeed=1.5,rollAcceleration=1;
+
             glm::vec2 screenCenter ;
              void enter(Application * app)
             {
                 this->app = app;
                 screenCenter=app->getWindowSize()/2;
-                // app->getMouse().lockMouse(app->getWindow());
             }
 
             void update(World *world, float deltaTime)

@@ -1,0 +1,142 @@
+{
+    "start-scene": "game",
+    "window": {
+        "title": "Default Game Window",
+        "size": {
+            "width": 1280,
+            "height": 720
+        },
+        "fullscreen": false
+    },
+    "scene": {
+        "renderer": {
+            "sky": "assets/textures/sky.jpg",
+            "topLight": [
+                0.3,
+                0.6,
+                1.0
+            ],
+            "middleLight": [
+                0.3,
+                0.3,
+                0.3
+            ],
+            "bottomLight": [
+                0.1,
+                0.1,
+                0.0
+            ]
+        },
+        "assets": {
+            "shaders": {
+                "tinted": {
+                    "vs": "assets/shaders/tinted.vert",
+                    "fs": "assets/shaders/tinted.frag"
+                },
+                "textured": {
+                    "vs": "assets/shaders/textured.vert",
+                    "fs": "assets/shaders/textured.frag"
+                },
+                "lit": {
+                    "vs": "assets/shaders/lit.vert",
+                    "fs": "assets/shaders/lit.frag"
+                },
+                "text": {
+                    "vs": "assets/shaders/text.vert",
+                    "fs": "assets/shaders/text.frag"
+                }
+
+            },
+            "textures": {
+                "albedo": "assets/textures/albedo.jpg",
+                "ambient": "assets/textures/ambient_occlusion.jpg",
+                "emission": "assets/textures/emissive.jpg",
+                "roughness": "assets/textures/roughness.jpg",
+                "specular": "assets/textures/specular.jpg",
+                "wwPlaneColor": "assets/textures/wwPlaneRGB.jpeg"
+            },
+            "meshes": {
+                "monkey": "assets/models/monkey1.obj",
+                "wwPlane": "assets/models/wwPlane.obj",
+                "fanWing": "assets/models/fanwing.obj"
+            },
+            "samplers": {
+                "default": {},
+                "pixelated": {
+                    "MAG_FILTER": "GL_NEAREST"
+                }
+            },
+            "materials": {
+               
+                "monkey": {
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo_texture": "wwPlaneColor",
+                    "ambient_occlusion_texture": "ambient",
+                    "specular_texture": "specular",
+                    "roughness_texture": "roughness",
+                    "emission_texture": "emission"
+                },
+            
+                "wwPlane": {
+                    "type": "lit",
+                    "shader": "lit",
+                    "pipelineState": {
+                        "faceCulling": {
+                            "enabled": false
+                        },
+                        "depthTesting": {
+                            "enabled": true
+                        }
+                    },
+                    "albedo_texture": "wwPlaneColor"
+                }
+            }
+        },
+        "world": [
+            {
+                "components": [
+                    {
+                        "type": "Camera"
+                    }
+                    ,{
+                        "type":"Free Camera Controller"
+                    }
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "monkey",
+                        "material": "monkey"
+                    },
+                    {
+                        "type":"Movement",
+                        "angularVelocity":[0,45,45]
+                    }
+                  
+                ]
+            },
+            {
+                "components": [
+                    {
+                        "type": "Light",
+                        "lightType": "point",
+                        "diffuse": [0.3,0.2,0.1],
+                        "specular": [0.3,0.2,0.1],
+                        "attenuation": [1,0,0]
+                    }
+                ]
+            }
+        ]
+    }
+}

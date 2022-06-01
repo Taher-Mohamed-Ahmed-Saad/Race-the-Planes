@@ -9,34 +9,62 @@
         "fullscreen": false
     },
     "scene": {
-        "menu":{
-            "selectedTextColor":[0.7,1.0,0.8],
-            "unselectedTextColor":[0.5,0.5,0.5],
-            "bgColor":[0.2,0.2,0.25],
-            "startGameText":"Start Game!",
-            "resumeGameText":"Resume",
-            "quitGameText":"quit",
-            "font":"default",
-            "shader":"text"
+        "menu": {
+            "selectedTextColor": [
+                0.7,
+                1.0,
+                0.8
+            ],
+            "unselectedTextColor": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "bgColor": [
+                0.2,
+                0.2,
+                0.25
+            ],
+            "startGameText": "Start Game!",
+            "resumeGameText": "Resume",
+            "quitGameText": "quit",
+            "font": "default",
+            "shader": "text"
+        },
+        "game":{
+            "time":60,
+            "collectToWin":40
         },
         "renderer": {
-            "sky": "assets/textures/snow_sky.jpg",                      
+            "sky": "assets/textures/snow_sky.jpg",
             "postprocess": "assets/shaders/postprocess/fog.frag",
-            "topLight": [0.1,0.2,0.5],
-            "middleLight": [0.1,0.2,0.3],
-            "bottomLight": [0.1,0.1,0.0]
+            "topLight": [
+                0.1,
+                0.2,
+                0.5
+            ],
+            "middleLight": [
+                0.1,
+                0.2,
+                0.3
+            ],
+            "bottomLight": [
+                0.1,
+                0.1,
+                0.0
+            ]
         },
         "assets": {
-            "fonts":{
-                "default":{
-                    "path":"assets/fonts/pricedown bl.otf"
+            "fonts": {
+                "default": {
+                    "path": "assets/fonts/pricedown bl.otf"
                 },
-                "menu":{
-                    "path":"assets/fonts/Bullpen3D.ttf"
+                "menu": {
+                    "path": "assets/fonts/Bullpen3D.ttf"
                 }
             },
             "shaders": {
-                "text":{
+                "text": {
                     "vs": "assets/shaders/text.vert",
                     "fs": "assets/shaders/text.frag"
                 },
@@ -86,7 +114,7 @@
                 }
             },
             "materials": {
-                "torus":{
+                "torus": {
                     "type": "lit",
                     "shader": "lit",
                     "pipelineState": {
@@ -103,7 +131,7 @@
                     "specular_texture": "torus_specular",
                     "emission_texture": "torus_color"
                 },
-                "house":{
+                "house": {
                     "type": "lit",
                     "shader": "lit",
                     "pipelineState": {
@@ -116,7 +144,7 @@
                     },
                     "albedo_texture": "cottage_color"
                 },
-                "snow":{
+                "snow": {
                     "type": "lit",
                     "shader": "lit",
                     "pipelineState": {
@@ -129,7 +157,7 @@
                     },
                     "albedo_texture": "snow_color"
                 },
-                "street":{
+                "street": {
                     "type": "lit",
                     "shader": "lit",
                     "pipelineState": {
@@ -188,14 +216,11 @@
         },
         "world": [
             {
-                "position":[0.5,0.5,0],
-                "components":[{
-                    "text":"Andrew",
-                    "font":"default"
-                }]
-            },
-            {
-                "position": [0,20,0],
+                "position": [
+                    0,
+                    60,
+                    20
+                ],
                 "components": [
                     {
                         "type": "Mesh Renderer",
@@ -203,15 +228,19 @@
                         "material": "wwPlane"
                     },
                     {
-                        "type": "Plane", 
-                        "acceleration": [6,6,7.5],
+                        "type": "Plane",
+                        "acceleration": [
+                            6,
+                            6,
+                            7.5
+                        ],
                         "maxForwardSpeed": 90,
                         "maxHoverSpeed": 42,
                         "maxSteerSpeed": 60,
-                        "maxLookRateSpeed":1
+                        "maxLookRateSpeed": 1
                     },
                     {
-                        "type":"Collision",
+                        "type": "Collision",
                         "collisionType": "dynamic",
                         "collider": {
                             "type": "Box",
@@ -221,7 +250,7 @@
                         }
                     },
                     {
-                        "type":"Player"
+                        "type": "Player"
                     }
                 ],
                 "children": [
@@ -262,40 +291,18 @@
                             {
                                 "type": "Camera",
                                 "fovY": 95,
-                                "far":500
-                            },{
-                                "type":"Free Camera Controller"
+                                "far": 1000
+                            },
+                            {
+                                "type": "Free Camera Controller"
                             }
                         ]
                     }
                 ]
-            }
+            },
             //=====================================================
             //====================Light=============================
             //=====================================================
-            ,{
-                "rotation": [
-                    0,
-                    60,
-                    60
-                ],
-                "components": [
-                    {
-                        "type": "Light",
-                        "lightType": "directional",
-                        "diffuse": [
-                            0.1,
-                            0.1,
-                            0.2
-                        ],
-                        "specular": [
-                            0.1,
-                            0.1,
-                            0.2
-                        ]
-                    }
-                ]
-            },
             {
                 "rotation": [
                     0,
@@ -318,58 +325,1482 @@
                         ]
                     }
                 ]
-            },
-            {
-                "position":[20,50,100],
-                "components":[
-                    {
-                        "type":"Mesh Renderer",
-                        "mesh": "wwPlane",
-                        "material": "wwPlane"
-                    },
-                    {
-                        "type": "Collision",
-                        "collisionType": "static",
-                        "collider": {
-                            "type": "Box",
-                            "width": 11.2797,
-                            "height": 9.50047,
-                            "depth": 3.1605
-                        }
-                    },
-                    {
-                        "type":"Coin"
-                    }
-            ]
-
             },
             //=====================================================
             //====================Coins=============================
             //=====================================================
+            //CoinsStart
             {
-                "position":[20,40,20],
-                "rotation":[90,0,0],
-                "components":[
+                "position": [
+                    20,
+                    40,
+                    20
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
                     {
-                        "type":"Mesh Renderer",
-                        "mesh":"torus",
-                        "material":"torus"
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
                     },
                     {
-                        "type":"Collision",
-                        "colliderType":"static",
-                        "collider":{
-                            "type":"Box",
-                            "depth":18,
-                            "height":3.5,
-                            "width":18
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
                         }
                     },
                     {
-                        "type":"Coin"
+                        "type": "Coin"
                     }
                 ]
             },
+            {
+                "position": [
+                    22,
+                    70,
+                    100
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    49,
+                    43,
+                    180
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    83,
+                    82,
+                    260
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    65,
+                    83,
+                    340
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    100,
+                    67,
+                    420
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    122,
+                    87,
+                    500
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    100,
+                    88,
+                    580
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    102,
+                    112,
+                    660
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    141,
+                    109,
+                    740
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    176,
+                    84,
+                    820
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    195,
+                    123,
+                    900
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    178,
+                    133,
+                    980
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    143,
+                    95,
+                    1060
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    181,
+                    62,
+                    1140
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    163,
+                    82,
+                    1220
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    179,
+                    110,
+                    1300
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    197,
+                    82,
+                    1380
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    209,
+                    44,
+                    1460
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    216,
+                    81,
+                    1540
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    184,
+                    48,
+                    1620
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    212,
+                    40,
+                    1700
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    195,
+                    51,
+                    1780
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    168,
+                    51,
+                    1860
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    207,
+                    49,
+                    1940
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    210,
+                    40,
+                    2020
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    208,
+                    40,
+                    2100
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    225,
+                    40,
+                    2180
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    254,
+                    56,
+                    2260
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    239,
+                    94,
+                    2340
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    226,
+                    63,
+                    2420
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    259,
+                    40,
+                    2500
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    252,
+                    76,
+                    2580
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    289,
+                    86,
+                    2660
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    285,
+                    116,
+                    2740
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    292,
+                    141,
+                    2820
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    290,
+                    108,
+                    2900
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    316,
+                    120,
+                    2980
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    352,
+                    142,
+                    3060
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    354,
+                    165,
+                    3140
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    364,
+                    137,
+                    3220
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    336,
+                    168,
+                    3300
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    316,
+                    187,
+                    3380
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    305,
+                    168,
+                    3460
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    267,
+                    176,
+                    3540
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    249,
+                    180,
+                    3620
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    284,
+                    204,
+                    3700
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    249,
+                    186,
+                    3780
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            {
+                "position": [
+                    268,
+                    164,
+                    3860
+                ],
+                "rotation": [
+                    90,
+                    0,
+                    0
+                ],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "torus",
+                        "material": "torus"
+                    },
+                    {
+                        "type": "Collision",
+                        "colliderType": "static",
+                        "collider": {
+                            "type": "Sphere",
+                            "radius": 9
+                        }
+                    },
+                    {
+                        "type": "Coin"
+                    }
+                ]
+            },
+            //CoinsEnd
             //=====================================================
             //====================World=============================
             //=====================================================
@@ -381,9 +1812,8 @@
                         "material": "snow"
                     }
                 ]
-                
             },
-         
+            //WorldStart
             {
                 "components": [
                     {
@@ -413,9 +1843,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -423,9 +1853,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -435,9 +1865,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -445,9 +1875,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -457,9 +1887,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -467,9 +1897,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -479,9 +1909,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -489,9 +1919,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -501,9 +1931,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -511,75 +1941,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -623,9 +1987,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -633,9 +1997,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -645,9 +2009,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -655,9 +2019,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -667,9 +2031,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -677,9 +2041,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -689,9 +2053,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -699,9 +2063,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -711,9 +2075,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -721,75 +2085,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -799,7 +2097,7 @@
                     }
                 ],
                 "position": [
-                    266,
+                    263,
                     0,
                     0
                 ]
@@ -833,9 +2131,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -843,9 +2141,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -855,9 +2153,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -865,9 +2163,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -877,9 +2175,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -887,9 +2185,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -899,9 +2197,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -909,9 +2207,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -921,9 +2219,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -931,75 +2229,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -1009,7 +2241,7 @@
                     }
                 ],
                 "position": [
-                    -266,
+                    -263,
                     0,
                     0
                 ]
@@ -1043,9 +2275,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1053,9 +2285,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1065,9 +2297,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1075,9 +2307,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1087,9 +2319,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1097,9 +2329,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1109,9 +2341,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1119,9 +2351,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1131,9 +2363,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -1141,75 +2373,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -1221,7 +2387,7 @@
                 "position": [
                     0,
                     0,
-                    744
+                    740
                 ]
             },
             {
@@ -1253,9 +2419,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1263,9 +2429,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1275,9 +2441,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1285,9 +2451,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1297,9 +2463,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1307,9 +2473,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1319,9 +2485,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1329,9 +2495,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1341,9 +2507,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -1351,75 +2517,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -1429,9 +2529,9 @@
                     }
                 ],
                 "position": [
-                    266,
+                    263,
                     0,
-                    744
+                    740
                 ]
             },
             {
@@ -1463,9 +2563,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1473,9 +2573,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1485,9 +2585,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1495,9 +2595,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1507,9 +2607,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1517,9 +2617,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1529,9 +2629,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1539,9 +2639,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1551,9 +2651,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -1561,75 +2661,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -1639,9 +2673,9 @@
                     }
                 ],
                 "position": [
-                    -266,
+                    -263,
                     0,
-                    744
+                    740
                 ]
             },
             {
@@ -1673,9 +2707,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1683,9 +2717,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1695,9 +2729,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1705,9 +2739,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1717,9 +2751,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1727,9 +2761,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1739,9 +2773,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1749,9 +2783,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1761,9 +2795,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -1771,75 +2805,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -1851,7 +2819,7 @@
                 "position": [
                     0,
                     0,
-                    1488
+                    1480
                 ]
             },
             {
@@ -1883,9 +2851,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1893,9 +2861,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1905,9 +2873,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1915,9 +2883,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1927,9 +2895,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -1937,9 +2905,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1949,9 +2917,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -1959,9 +2927,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -1971,9 +2939,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -1981,75 +2949,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -2059,9 +2961,9 @@
                     }
                 ],
                 "position": [
-                    266,
+                    263,
                     0,
-                    1488
+                    1480
                 ]
             },
             {
@@ -2093,9 +2995,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2103,9 +3005,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2115,9 +3017,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2125,9 +3027,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2137,9 +3039,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2147,9 +3049,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2159,9 +3061,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2169,9 +3071,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2181,9 +3083,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -2191,75 +3093,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -2269,9 +3105,9 @@
                     }
                 ],
                 "position": [
-                    -266,
+                    -263,
                     0,
-                    1488
+                    1480
                 ]
             },
             {
@@ -2303,9 +3139,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2313,9 +3149,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2325,9 +3161,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2335,9 +3171,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2347,9 +3183,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2357,9 +3193,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2369,9 +3205,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2379,9 +3215,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2391,9 +3227,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -2401,75 +3237,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -2481,7 +3251,7 @@
                 "position": [
                     0,
                     0,
-                    2232
+                    2220
                 ]
             },
             {
@@ -2513,9 +3283,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2523,9 +3293,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2535,9 +3305,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2545,9 +3315,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2557,9 +3327,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2567,9 +3337,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2579,9 +3349,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2589,9 +3359,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2601,9 +3371,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -2611,75 +3381,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -2689,9 +3393,9 @@
                     }
                 ],
                 "position": [
-                    266,
+                    263,
                     0,
-                    2232
+                    2220
                 ]
             },
             {
@@ -2723,9 +3427,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2733,9 +3437,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2745,9 +3449,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2755,9 +3459,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2767,9 +3471,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2777,9 +3481,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2789,9 +3493,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2799,9 +3503,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2811,9 +3515,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -2821,75 +3525,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -2899,9 +3537,9 @@
                     }
                 ],
                 "position": [
-                    -266,
+                    -263,
                     0,
-                    2232
+                    2220
                 ]
             },
             {
@@ -2933,9 +3571,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -2943,9 +3581,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2955,9 +3593,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2965,9 +3603,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2977,9 +3615,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -2987,9 +3625,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -2999,9 +3637,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -3009,9 +3647,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3021,9 +3659,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -3031,75 +3669,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -3111,7 +3683,7 @@
                 "position": [
                     0,
                     0,
-                    2976
+                    2960
                 ]
             },
             {
@@ -3143,9 +3715,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -3153,9 +3725,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3165,9 +3737,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -3175,9 +3747,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3187,9 +3759,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -3197,9 +3769,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3209,9 +3781,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -3219,9 +3791,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3231,9 +3803,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -3241,75 +3813,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -3319,9 +3825,9 @@
                     }
                 ],
                 "position": [
-                    266,
+                    263,
                     0,
-                    2976
+                    2960
                 ]
             },
             {
@@ -3353,9 +3859,9 @@
                     },
                     {
                         "position": [
-                            59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -3363,9 +3869,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3375,9 +3881,9 @@
                     },
                     {
                         "position": [
-                            106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -3385,9 +3891,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3397,9 +3903,9 @@
                     },
                     {
                         "position": [
-                            -59.3,
-                            7.3,
-                            171
+                            82.2,
+                            5.6,
+                            590
                         ],
                         "components": [
                             {
@@ -3407,9 +3913,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3419,9 +3925,9 @@
                     },
                     {
                         "position": [
-                            -106.43,
-                            7.3,
-                            171
+                            -82.2,
+                            5.6,
+                            212
                         ],
                         "components": [
                             {
@@ -3429,9 +3935,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 364,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 280,
+                                    "height": 21.5,
+                                    "width": 81.5
                                 }
                             },
                             {
@@ -3441,9 +3947,9 @@
                     },
                     {
                         "position": [
-                            -59.4,
-                            7.3,
-                            595
+                            0,
+                            0,
+                            358
                         ],
                         "components": [
                             {
@@ -3451,75 +3957,9 @@
                                 "collisionType": "static",
                                 "collider": {
                                     "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            -106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            59.4,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
-                                }
-                            },
-                            {
-                                "type": "Obstacle"
-                            }
-                        ]
-                    },
-                    {
-                        "position": [
-                            106.43,
-                            7.3,
-                            595
-                        ],
-                        "components": [
-                            {
-                                "type": "Collision",
-                                "collisionType": "static",
-                                "collider": {
-                                    "type": "Box",
-                                    "depth": 277,
-                                    "height": 18.6,
-                                    "width": 38
+                                    "depth": 764,
+                                    "height": 4.14,
+                                    "width": 273
                                 }
                             },
                             {
@@ -3529,11 +3969,11 @@
                     }
                 ],
                 "position": [
-                    -266,
+                    -263,
                     0,
-                    2976
+                    2960
                 ]
-            }
+            } //WorldEnd
         ]
     }
 }
