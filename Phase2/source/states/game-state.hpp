@@ -21,8 +21,9 @@ class GameState: public our::State {
     our::CollisionDetector collisionDetector;
     our::PlaneControllerSystem planeSystem;
     our::PlaneGame game;
-
+    bool loaded=false;
     void onInitialize() override {
+        if(loaded) return;
         // First of all, we get the scene configuration from the app config
         auto& config = getApp()->getConfig()["scene"];
         // If we have assets in the scene config, we deserialize them
@@ -39,9 +40,18 @@ class GameState: public our::State {
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
+        loaded=true;
     }
 
-    void onDraw(double deltaTime) override {
+    void onImmediateGui() override
+    {
+        ImGui::Begin("Plane Game");
+        ImGui::Text(std::to_string( game.getScore()).c_str());
+        ImGui::End();
+    }
+
+    void onDraw(double deltaTime) override
+    {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         planeSystem.update(&world, (float)deltaTime);
@@ -58,11 +68,12 @@ class GameState: public our::State {
         }
     }
 
-    void onDestroy() override {
+    ~GameState()  {
+        std::cout<<"DELEEEEEEEEEETEDDDDD HEHEHEHEHEEHEH\n\n\n";
         // Don't forget to destroy the renderer
         renderer.destroy();
               // On exit, we call exit for the camera controller system to make sure that the mouse is unlocked
-        // cameraController.exit();
+        cameraController.exit();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
         our::clearAllAssets();
         cameraController.exit();

@@ -1,5 +1,6 @@
 #include "asset-loader.hpp"
 
+#include "font/font.hpp"
 #include "shader/shader.hpp"
 #include "texture/texture2d.hpp"
 #include "texture/texture-utils.hpp"
@@ -73,6 +74,8 @@ namespace our {
         }
     };
 
+ 
+
     // This will load all the materials defined in "data"
     // Material deserialization depends on shaders, textures and samplers
     // so you must deserialize these 3 asset types before deserializing materials
@@ -96,7 +99,21 @@ namespace our {
             }
         }
     };
-
+    // This will load all the fonts defined in "data"
+    template <>
+    void AssetLoader<Font>::deserialize(const nlohmann::json &data)
+    {
+        if (data.is_object())
+        {
+            for (auto &[name, desc] : data.items())
+            {
+                int smallFontSize=desc.value("small",SMALL_FONT_SIZE);
+                int largeFontSize=desc.value("large",LARGE_FONT_SIZE);
+                assets[name] = new Font(desc.value("path", ""), smallFontSize, largeFontSize);
+            }
+        }
+    };
+    
     void deserializeAllAssets(const nlohmann::json& assetData){
         if(!assetData.is_object()) return;
         if(assetData.contains("shaders"))
@@ -109,6 +126,8 @@ namespace our {
             AssetLoader<Mesh>::deserialize(assetData["meshes"]);
         if(assetData.contains("materials"))
             AssetLoader<Material>::deserialize(assetData["materials"]);
+        if(assetData.contains("fonts"))
+            AssetLoader<Font>::deserialize(assetData["fonts"]);
     }
 
     void clearAllAssets(){

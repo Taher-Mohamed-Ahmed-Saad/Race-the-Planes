@@ -60,6 +60,7 @@ set(COMMON_SOURCES
         source/common/material/material.hpp
         source/common/material/material.cpp
 
+        source/common/font/font.hpp
         source/common/ecs/component.hpp
         source/common/ecs/transform.hpp
         source/common/ecs/transform.cpp
@@ -90,6 +91,7 @@ set(COMMON_SOURCES
         source/common/systems/movement.hpp
         source/common/systems/collision-detector.hpp
         source/common/systems/plane-game.hpp
+        source/common/systems/text-renderer.hpp
 )
 
 # Define the directories in which to search for the included headers
@@ -100,7 +102,7 @@ include_directories(
         vendor/glm
         vendor/imgui
         vendor/utils
-        vendor/freetype
+        vendor/freetype/include
 )
 
 
@@ -128,3 +130,4 @@ set(STATES_SOURCES
 # Then we link GLFW with each target
 add_executable(GAME_APPLICATION source/main.cpp ${STATES_SOURCES} ${COMMON_SOURCES} ${VENDOR_SOURCES})
 target_link_libraries(GAME_APPLICATION glfw)
+target_link_libraries(GAME_APPLICATION ../vendor/freetype/freetype)
