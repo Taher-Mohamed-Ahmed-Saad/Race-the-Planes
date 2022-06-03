@@ -1,5 +1,5 @@
 {
-    "start-scene": "game",
+    "start-scene": "main",
     "window": {
         "title": "Default Game Window",
         "size": {
@@ -103,6 +103,7 @@
         },
         "world": [
             {
+                "position":[0,0,5],
                 "components": [
                     {
                         "type": "Camera"
@@ -123,17 +124,18 @@
                         "type":"Movement",
                         "angularVelocity":[0,45,45]
                     }
-                  
+                    
                 ]
             },
             {
+                "position":[0,3,0],
                 "components": [
                     {
                         "type": "Light",
                         "lightType": "point",
                         "diffuse": [0.3,0.2,0.1],
                         "specular": [0.3,0.2,0.1],
-                        "attenuation": [1,0,0]
+                        "attenuation": [0.01,0,0]
                     }
                 ]
             }

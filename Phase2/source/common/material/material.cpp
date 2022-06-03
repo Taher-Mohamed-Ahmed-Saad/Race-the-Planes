@@ -138,7 +138,7 @@ namespace our
         else
             glBindTexture(GL_TEXTURE_2D,0);
         ambientOccSampler->bind(3);
-        shader->set("material.ambientOcc", 3);
+        shader->set("material.ambient_occlusion", 3);
 
         glActiveTexture(GL_TEXTURE4);
         if (emission)
