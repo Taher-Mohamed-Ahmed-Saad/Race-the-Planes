@@ -62,9 +62,10 @@ class GameState: public our::State {
             collisions.clear();
             world.deleteMarkedEntities();
             cameraController.update(&world,(float)deltaTime);
+            
         }
-        // And finally we use the renderer system to draw the scene
         renderer.render(&world);
+        // And finally we use the renderer system to draw the scene
 
 
 

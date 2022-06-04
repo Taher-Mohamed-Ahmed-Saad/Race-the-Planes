@@ -12,19 +12,19 @@
         "renderer": {
             "sky": "assets/textures/sky.jpg",
             "topLight": [
-                0.3,
-                0.6,
-                1.0
+                0,
+                0,
+                0
             ],
             "middleLight": [
-                0.3,
-                0.3,
-                0.3
+                0,
+                0,
+                0
             ],
             "bottomLight": [
-                0.1,
-                0.1,
-                0.0
+                0,
+                0,
+                0
             ]
         },
         "assets": {
@@ -132,9 +132,9 @@
                 "components": [
                     {
                         "type": "Light",
-                        "lightType": "point",
-                        "diffuse": [0.3,0.2,0.1],
-                        "specular": [0.3,0.2,0.1],
+                        "lightType": "spot",
+                        "diffuse": [30,0.2,0.1],
+                        "specular": [30,0.2,0.1],
                         "attenuation": [0.01,0,0]
                     }
                 ]

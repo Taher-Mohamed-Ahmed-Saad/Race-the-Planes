@@ -219,7 +219,8 @@
                         }
                     },
                     "albedo_texture": "wwPlaneColor",
-                    "ambient_occlusion_texture": "wwPlaneColor"
+                    "ambient_occlusion_texture": "wwPlaneColor",
+                    "roughness_texture": "torus_roughness"
                 },
                 "cottage": {
                     "type": "lit",
@@ -351,12 +352,12 @@
                         "type": "Light",
                         "lightType": "directional",
                         "diffuse": [
-                            5.6,
+                            0.6,
                             0.4,
                             0.25
                         ],
                         "specular": [
-                            5.6,
+                            0.6,
                             0.4,
                             0.25
                         ]

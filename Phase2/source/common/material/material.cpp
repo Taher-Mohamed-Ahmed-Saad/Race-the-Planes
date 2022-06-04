@@ -134,9 +134,15 @@ namespace our
 
         glActiveTexture(GL_TEXTURE3);
         if (ambientOcc)
+        {
+            shader->set("material.has_ambient", true);
             ambientOcc->bind();
-        else
+        }
+        else{
+
+            shader->set("material.has_ambient", false);
             glBindTexture(GL_TEXTURE_2D,0);
+        }
         ambientOccSampler->bind(3);
         shader->set("material.ambient_occlusion", 3);
 

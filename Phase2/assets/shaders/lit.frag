@@ -31,6 +31,7 @@ struct Material {
     sampler2D ambient_occlusion;
     sampler2D roughness;
     sampler2D emissive;
+    bool has_ambient;
 };
 
 uniform Material material;
@@ -51,8 +52,14 @@ void main(){
 
     vec3 material_diffuse = texture(material.albedo, fs_in.tex_coord).rgb;
     vec3 material_specular = texture(material.specular, fs_in.tex_coord).rgb;
-    vec3 material_ambient = material_diffuse * texture(material.ambient_occlusion, fs_in.tex_coord).r;
     
+    vec3 material_ambient;
+    
+    if(material.has_ambient)
+        material_ambient=material_diffuse * texture(material.ambient_occlusion, fs_in.tex_coord).r;
+    else
+        material_ambient=material_diffuse;
+
     float material_roughness = texture(material.roughness, fs_in.tex_coord).r;
     float material_shininess = 2.0 / pow(clamp(material_roughness, 0.001, 0.999), 4.0) - 2.0;
 
