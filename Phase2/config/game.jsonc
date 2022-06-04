@@ -89,6 +89,7 @@
                 "torus_roughness": "assets/textures/gold_roughness.jpg",
                 "torus_specular": "assets/textures/specular.jpg",
                 "cottage_color": "assets/textures/Cottage Texture.jpg",
+                "cottage_roughness": "assets/textures/cottage_roughness.png",
                 "snow_color": "assets/textures/Snow_002_COLOR.jpg",
                 "street_color": "assets/textures/asphalt/asp_col.jpg",
                 "street_ao": "assets/textures/asphalt/asp_AO.jpg",
@@ -219,7 +220,7 @@
                         }
                     },
                     "albedo_texture": "wwPlaneColor",
-                    "ambient_occlusion_texture": "wwPlaneColor",
+                    "specular_texture": "torus_specular",
                     "roughness_texture": "torus_roughness"
                 },
                 "cottage": {
@@ -233,7 +234,8 @@
                             "enabled": true
                         }
                     },
-                    "albedo_texture": "cottage_color"
+                    "albedo_texture": "cottage_color",
+                    "roughness_texture": "cottage_roughness"
                 },
                 "starSparrow": {
                     "type": "lit",
