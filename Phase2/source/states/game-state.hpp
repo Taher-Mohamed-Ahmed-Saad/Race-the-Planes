@@ -64,8 +64,8 @@ class GameState: public our::State {
             cameraController.update(&world,(float)deltaTime);
             
         }
-        renderer.render(&world);
         // And finally we use the renderer system to draw the scene
+        renderer.render(&world);
 
 
 
