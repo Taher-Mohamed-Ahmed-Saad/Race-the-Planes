@@ -58,7 +58,7 @@ Run this Command  .\bin\GAME_APPLICATION.exe -c="config\game.jsonc"
 
 <div name = "demo" align="center" width=1189>
   
-![GIFDemo](README/videos/Demo1.gif)
+![GIFDemo](README/videos/Demo1.mp4)
   
 </div>
 
