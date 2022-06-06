@@ -130,13 +130,7 @@ namespace our {
         return entities;
     }
     
-    /*
-        assume default light direction going downwards
-        so to get the direction of the light we  nedd to rotate the vector rotating downwards to point to the required direction
-    */
-    glm::vec3 getDirection(glm::vec3 rotation){
-        return glm::yawPitchRoll(rotation[1], rotation[0], rotation[2])*glm::vec4(0,-1,0,0);
-    }
+ 
     /*
         setup all the lights in the scene so that the shader get affected with it
         this is done by giving the shader all the required parameters about each light in the scene
@@ -146,9 +140,17 @@ namespace our {
         shader->set("light_count", (int)lightEntities.size());
         for (int i = 0; i < lightEntities.size(); i++)
         {
+
             std::string lightStr = "lights[" + std::to_string(i) + "]";
-            shader->set(lightStr + ".position", lightEntities[i]->localTransform.position);
-            shader->set(lightStr + ".direction", getDirection(lightEntities[i]->localTransform.rotation));
+            auto M = lightEntities[i]->getLocalToWorldMatrix();
+            /*
+                assume default light direction going downwards
+                so to get the direction of the light we  nedd to rotate the vector rotating downwards to point to the required direction
+            */
+
+            auto dir = glm::normalize(glm::vec3(M * glm::vec4(0, -1, 0, 0)));
+            shader->set(lightStr + ".direction", dir);
+            shader->set(lightStr + ".position", glm::vec3(M * glm::vec4(0, 0, 0, 1)));
             
             Light* light=lightEntities[i]->getComponent<Light>();
             shader->set(lightStr + ".type", (int)light->lightType);

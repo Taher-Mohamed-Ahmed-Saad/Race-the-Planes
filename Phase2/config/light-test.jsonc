@@ -129,7 +129,7 @@
             },
             {
                 "position":[0,3,0],
-                "rotation":[0,0,10],
+                // "rotation":[0,0,10],
                 "components": [
                     {
                         "type": "Light",

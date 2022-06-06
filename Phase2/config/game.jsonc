@@ -10,21 +10,9 @@
     },
     "scene": {
         "menu": {
-            "selectedTextColor": [
-                0.7,
-                1.0,
-                0.8
-            ],
-            "unselectedTextColor": [
-                0.5,
-                0.5,
-                0.5
-            ],
-            "bgColor": [
-                0.2,
-                0.2,
-                0.25
-            ],
+            "selectedTextColor": [0.7,1.0,0.8],
+            "unselectedTextColor": [0.5,0.5,0.5],
+            "bgColor": [0.2,0.2,0.25],
             "startGameText": "Start Game!",
             "resumeGameText": "Resume",
             "quitGameText": "quit",
