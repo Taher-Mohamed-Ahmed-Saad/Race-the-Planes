@@ -1,0 +1,20 @@
+PostProcessing      --> Taher
+Plane Controller    --> Taher
+Lighting Material   --> Omar
+Game Logic          --> Omar
+Lighting Components --> Ziad
+Text Rendering      --> Ziad
+Collision           --> Andrew
+Menu State          --> Andrew 
+
+
+PostProcessing      -->  assets/shader/postproccessing/fog.frag
+                         systems/forward-renderer.cpp
+Plane Controller    -->  systems/plane-controller.hpp
+                         components/plane-component.cpp , .hpp
+Lighting Material   -->  material/material.hpp , material.cpp (litmaterial class) , systems/forward-renderer.cpp
+Lighting Component  -->  Components/Light.hpp  , Light.cpp     , systems/forward-renderer.cpp ,assets/shaders/lit.frag , lit.vert
+Game Logic          -->  systems/plane-game  // may take a look at ----> states/game-state.hpp
+Text Rendering      -->  systems/text-rendere.hpp ,cpp , common/font/font.hpp ,assets/shaders/text.frag ,.vert 
+Colision            -->  systems/collision-detector.cpp , colliders/*
+Menu State          -->  states/menu-state.hpp , states/game-state.hpp

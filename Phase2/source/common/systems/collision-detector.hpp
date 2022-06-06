@@ -148,7 +148,6 @@ namespace our
                     if(areColliding(staticEntity,animatedEntity)){
                         Collision * collision=new Collision(staticEntity,animatedEntity);
                         collisions.push_back(collision);        
-                        // std::cout<<"Coooooooooolision\n\n\n";
                     }
                 }
             }
